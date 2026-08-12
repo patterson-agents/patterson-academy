@@ -11,3 +11,7 @@
 # OS / editor noise
 .DS_Store
 *.swp
+node_modules/
+dist/
+.astro/
+site/dist/
