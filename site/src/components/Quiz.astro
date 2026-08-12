@@ -1,0 +1,220 @@
+---
+/**
+ * Patterson Academy — lesson quiz.
+ *
+ * A plain Astro component with an inline script: no React, no client:* directive,
+ * no framework dependency. Every question and answer is rendered server-side, so
+ * the page still reads correctly with JavaScript disabled — the script only adds
+ * the reveal.
+ *
+ * Usage (emitted by scripts/build-course.ts):
+ *   <Quiz questions={[{ q, opts, a, why }, ...]} />
+ */
+
+interface Question {
+  /** The question. */
+  q: string;
+  /** Four answer options. */
+  opts: string[];
+  /** Index of the correct option. */
+  a: number;
+  /** Why that answer is right — revealed after a choice is made. */
+  why: string;
+}
+
+interface Props {
+  questions: Question[];
+}
+
+const { questions } = Astro.props;
+const uid = Math.random().toString(36).slice(2, 8);
+const letters = ['A', 'B', 'C', 'D', 'E', 'F'];
+---
+
+<div class="pa-quiz">
+  {
+    questions.map((question, qi) => (
+      <div
+        class="pa-quiz__item"
+        role="group"
+        aria-labelledby={`pa-q-${uid}-${qi}`}
+        data-answered="false"
+      >
+        <p class="pa-quiz__q" id={`pa-q-${uid}-${qi}`}>
+          <span class="pa-quiz__num">Question {qi + 1}</span>
+          {question.q}
+        </p>
+        <div class="pa-quiz__opts">
+          {question.opts.map((opt, oi) => (
+            <button
+              type="button"
+              class="pa-quiz__opt"
+              data-correct={oi === question.a ? 'true' : 'false'}
+              aria-pressed="false"
+            >
+              <span class="pa-quiz__letter" aria-hidden="true">
+                {letters[oi] ?? String(oi + 1)}
+              </span>
+              <span class="pa-quiz__label">{opt}</span>
+            </button>
+          ))}
+        </div>
+        <p class="pa-quiz__why" role="status" hidden>
+          <strong class="pa-quiz__verdict" />
+          {question.why}
+        </p>
+      </div>
+    ))
+  }
+</div>
+
+<script>
+  // One delegated listener for every quiz on the page. Astro bundles and dedupes
+  // this script, so it runs once no matter how many questions a lesson carries.
+  document.addEventListener('click', (event) => {
+    const target = event.target as Element | null;
+    const option = target?.closest?.('.pa-quiz__opt') as HTMLButtonElement | null;
+    if (!option) return;
+
+    const item = option.closest('.pa-quiz__item') as HTMLElement | null;
+    if (!item || item.dataset.answered === 'true') return;
+    item.dataset.answered = 'true';
+
+    const correct = option.dataset.correct === 'true';
+    option.dataset.state = correct ? 'correct' : 'incorrect';
+    option.setAttribute('aria-pressed', 'true');
+
+    for (const other of item.querySelectorAll<HTMLButtonElement>('.pa-quiz__opt')) {
+      other.setAttribute('aria-disabled', 'true');
+      if (other !== option && other.dataset.correct === 'true') {
+        other.dataset.state = 'answer';
+      }
+    }
+
+    const verdict = item.querySelector('.pa-quiz__verdict');
+    if (verdict) verdict.textContent = correct ? 'Correct. ' : 'Not quite. ';
+    const why = item.querySelector('.pa-quiz__why') as HTMLElement | null;
+    if (why) why.hidden = false;
+  });
+</script>
+
+<style>
+  /* 5px radius, sky focus ring, sentence case — no uppercase transforms. */
+  .pa-quiz {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+  }
+
+  .pa-quiz__item {
+    border: 1px solid var(--sl-color-hairline);
+    border-radius: var(--pat-radius, 5px);
+    padding: 1.25rem;
+    background-color: var(--sl-color-black);
+  }
+
+  .pa-quiz__q {
+    font-weight: 600;
+    line-height: 1.5;
+    margin: 0 0 1rem;
+  }
+
+  .pa-quiz__num {
+    display: block;
+    color: var(--pat-teal, #00817d);
+    font-size: var(--sl-text-xs);
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+  }
+  :root:not([data-theme='light']) .pa-quiz__num {
+    color: var(--pat-teal-light, #4dc4c0);
+  }
+
+  .pa-quiz__opts {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .pa-quiz__opt {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    width: 100%;
+    min-height: 46px; /* Patterson control height [BG25 p.57] */
+    padding: 0.625rem 0.875rem;
+    text-align: left;
+    font: inherit;
+    line-height: 1.5;
+    color: var(--sl-color-white);
+    background-color: var(--sl-color-gray-7, transparent);
+    border: 1px solid var(--sl-color-hairline);
+    border-radius: var(--pat-radius, 5px);
+    cursor: pointer;
+    transition:
+      background-color var(--pat-transition, 0.2s ease-in-out),
+      border-color var(--pat-transition, 0.2s ease-in-out);
+  }
+
+  .pa-quiz__opt:hover {
+    border-color: var(--sl-color-accent);
+  }
+
+  .pa-quiz__opt[aria-disabled='true'] {
+    cursor: default;
+  }
+  .pa-quiz__opt[aria-disabled='true']:hover {
+    border-color: var(--sl-color-hairline);
+  }
+
+  .pa-quiz__letter {
+    flex: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: var(--pat-radius, 5px);
+    background-color: var(--sl-color-gray-6);
+    color: var(--sl-color-gray-1);
+    font-size: var(--sl-text-xs);
+    font-weight: 600;
+  }
+
+  /* Answer states. Color never carries the meaning alone — the verdict
+     sentence below the options says which it was. */
+  .pa-quiz__opt[data-state='correct'],
+  .pa-quiz__opt[data-state='answer'] {
+    border-color: var(--pat-teal, #00817d);
+    background-color: color-mix(in srgb, var(--pat-teal, #00817d) 10%, transparent);
+  }
+  .pa-quiz__opt[data-state='correct'] .pa-quiz__letter,
+  .pa-quiz__opt[data-state='answer'] .pa-quiz__letter {
+    background-color: var(--pat-teal, #00817d);
+    color: #ffffff;
+  }
+
+  .pa-quiz__opt[data-state='incorrect'] {
+    border-color: var(--pat-error, #d0021b);
+    background-color: color-mix(in srgb, var(--pat-error, #d0021b) 8%, transparent);
+  }
+  .pa-quiz__opt[data-state='incorrect'] .pa-quiz__letter {
+    background-color: var(--pat-error, #d0021b);
+    color: #ffffff;
+  }
+
+  .pa-quiz__why {
+    margin: 1rem 0 0;
+    padding-top: 0.875rem;
+    border-top: 1px solid var(--sl-color-hairline);
+    line-height: 1.5;
+    color: var(--sl-color-gray-2);
+  }
+  .pa-quiz__why[hidden] {
+    display: none;
+  }
+  .pa-quiz__verdict {
+    color: var(--sl-color-white);
+  }
+</style>
