@@ -23,12 +23,21 @@ skills, plugins, MCP, hooks, and sandboxing.
 
 ## Table of contents
 
+- [Live site](#live-site)
 - [What this is](#what-this-is)
 - [Provenance](#provenance)
 - [Running it locally](#running-it-locally)
 - [Layout](#layout)
 - [The design system binding](#the-design-system-binding)
 - [Fonts](#fonts)
+
+## Live site
+
+**[academy.pattersonskills.com](https://academy.pattersonskills.com)** — Claude Code training
+for Patterson teams: sessions, context, memory, skills, subagents, hooks, MCP servers and
+plugins.
+
+<img src="docs/screenshots/site-home.webp" width="100%" alt="Claude Code Academy documentation site home page">
 
 ## What this is
 
