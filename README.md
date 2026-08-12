@@ -1,6 +1,6 @@
 <div align="center">
 
-![Patterson Academy](docs/assets/banner.svg)
+![Patterson Academy](docs/assets/banner.webp)
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="assets/patterson-logo-white.svg">
