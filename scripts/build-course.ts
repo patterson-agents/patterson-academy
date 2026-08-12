@@ -187,6 +187,21 @@ const text = (s: string): string =>
 /** Plain text going into a Markdown table cell: same, plus pipes and newlines. */
 const cell = (s: string): string => text(s).replace(/\|/g, '\\|').replace(/\n/g, '<br />');
 
+/**
+ * Inline code. The content is NOT entity-escaped: MDX treats the inside of a
+ * code span as literal, so `{` and `<` are already safe there — and escaping
+ * them would render the entity itself, since character references are not
+ * decoded inside code spans. Only the table-cell pipe still needs escaping.
+ * The delimiter grows past any backtick run in the content.
+ */
+function codeSpan(s: string): string {
+  let longest = 0;
+  for (const run of s.match(/`+/g) ?? []) longest = Math.max(longest, run.length);
+  const ticks = '`'.repeat(longest + 1);
+  const pad = s.startsWith('`') || s.endsWith('`') ? ' ' : '';
+  return `${ticks}${pad}${s.replace(/\|/g, '\\|')}${pad}${ticks}`;
+}
+
 /** A fence long enough to contain the code, whatever backticks are inside it. */
 function fence(code: string, lang: string, title?: string): string {
   let longest = 0;
@@ -196,14 +211,19 @@ function fence(code: string, lang: string, title?: string): string {
   return `${ticks}${head}\n${code}\n${ticks}`;
 }
 
-function table(head: string[], rows: string[][]): string {
+/** Assembles a Markdown table from cells that are already escaped. */
+function tableRaw(head: string[], rows: string[][]): string {
   const lines = [
-    `| ${head.map(cell).join(' | ')} |`,
+    `| ${head.join(' | ')} |`,
     `| ${head.map(() => '---').join(' | ')} |`,
-    ...rows.map((r) => `| ${r.map(cell).join(' | ')} |`),
+    ...rows.map((r) => `| ${r.join(' | ')} |`),
   ];
   return lines.join('\n');
 }
+
+/** Table of plain text. */
+const table = (head: string[], rows: string[][]): string =>
+  tableRaw(head.map(cell), rows.map((r) => r.map(cell)));
 
 /** Import specifier from a generated page to a site component. */
 const importPath = (fromFile: string, toFile: string): string => {
@@ -430,12 +450,13 @@ function promptPage(
   if (artifact.params.length) {
     parts.push('## Parameters');
     // Parameter names are literals like `<user request>` and `${CLAUDE_PLUGIN_ROOT}`.
-    // Inline code keeps them literal and keeps MDX out of the way.
+    // They go in a code span, which is literal in MDX — so they must NOT be
+    // entity-escaped, or the entity itself shows up on the page.
     parts.push(
-      table(
-        ['Parameter', 'What to supply'],
-        artifact.params.map(([k, v]) => [`\`${k}\``, v]),
-      ).replace(/\\`/g, '`'),
+      tableRaw(
+        ['Parameter', 'What to supply'].map(cell),
+        artifact.params.map(([k, v]) => [codeSpan(k), cell(v)]),
+      ),
     );
   }
   parts.push('## The artifact');
