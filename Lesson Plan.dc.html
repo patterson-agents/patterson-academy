@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="_ds/patterson-companies-design-system-3534f94f-a7e6-4612-81d4-6e830716f07d/tokens/fonts.css">
+  <link rel="stylesheet" href="_ds/patterson-companies-design-system-3534f94f-a7e6-4612-81d4-6e830716f07d/tokens/colors.css">
+  <link rel="stylesheet" href="_ds/patterson-companies-design-system-3534f94f-a7e6-4612-81d4-6e830716f07d/tokens/typography.css">
+  <link rel="stylesheet" href="_ds/patterson-companies-design-system-3534f94f-a7e6-4612-81d4-6e830716f07d/tokens/spacing.css">
+  <link rel="stylesheet" href="_ds/patterson-companies-design-system-3534f94f-a7e6-4612-81d4-6e830716f07d/tokens/effects.css">
+  <link rel="stylesheet" href="_ds/patterson-companies-design-system-3534f94f-a7e6-4612-81d4-6e830716f07d/tokens/base.css">
+  <link rel="stylesheet" href="_ds/patterson-companies-design-system-3534f94f-a7e6-4612-81d4-6e830716f07d/styles.css">
+  <script src="_ds/patterson-companies-design-system-3534f94f-a7e6-4612-81d4-6e830716f07d/_ds_bundle.js"></script>
+  <script src="academy-data-1.js"></script>
+  <script src="academy-data-2.js"></script>
+  <script src="academy-lab.js"></script>
+  <script src="academy-summaries.js"></script>
+  <script src="./doc-page.js"></script>
+  <style>
+    doc-page:not(:defined) { visibility: hidden; }
+    * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    * { animation-delay: -99s !important; animation-duration: .001s !important;
+        animation-iteration-count: 1 !important; animation-fill-mode: both !important;
+        animation-play-state: running !important; transition-duration: 0s !important; }
+    a { color: #147EC2; text-decoration: none; }
+    a:hover { color: #003767; text-decoration: underline; }
+    @media print { .no-print { display: none !important; } }
+  </style>
+</helmet>
+
+<div class="no-print" style="font-family: proxima-nova, Figtree, Arial, sans-serif; display: flex; align-items: center; gap: 12px; padding: 14px 20px 0;">
+  <a href="Claude Code Academy.dc.html" style="display: inline-flex; align-items: center; gap: 7px; font-size: 13px; font-weight: 700; color: #003767;">&larr; Back to the Academy</a>
+</div>
+
+<doc-page data-screen-label="Syllabus">
+  <section class="page" style="display: flex; flex-direction: column; font-family: proxima-nova, Figtree, Arial, sans-serif; color: #3D4B57;">
+    <header style="flex: 0 0 auto; background: #003767; padding: 26px 34px 22px; display: flex; align-items: flex-end; gap: 30px;">
+      <div style="flex: 1; min-width: 0;">
+        <img src="assets/patterson-logo-white.svg" alt="Patterson" style="height: 16px; display: block; margin-bottom: 14px;">
+        <div style="color: #00A8E1; font-size: 9.5px; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 7px;">Patterson Academy &middot; Course Syllabus</div>
+        <h1 style="margin: 0 0 7px; color: #fff; font-size: 26px; font-weight: 800; letter-spacing: -0.01em; line-height: 1.1;">Learn Claude Code</h1>
+        <p style="margin: 0; color: #C9DCEA; font-size: 11.5px; line-height: 1.55; max-width: 430px;">Six modules on the agentic loop, sessions and context, the .claude directory, the extension layer, plugin distribution and the wider ecosystem &mdash; built on the official Claude Code documentation.</p>
+      </div>
+      <div style="flex: 0 0 auto; display: grid; grid-template-columns: repeat(2, auto); gap: 12px 26px;">
+        <sc-for list="{{ facts }}" as="f" hint-placeholder-count="4">
+          <div>
+            <div style="font-size: 20px; font-weight: 800; color: #fff; line-height: 1;">{{ f.v }}</div>
+            <div style="font-size: 8.5px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #7FA9C7; margin-top: 3px;">{{ f.l }}</div>
+          </div>
+        </sc-for>
+      </div>
+    </header>
+
+    <div style="flex: 1; min-height: 0; padding: 20px 34px 0;">
+      <div style="display: flex; gap: 24px; margin-bottom: 16px;">
+        <div style="flex: 1;">
+          <h2 style="margin: 0 0 4px; color: #003767; font-size: 12px; font-weight: 800; letter-spacing: 0.02em;">Audience</h2>
+          <p style="margin: 0; font-size: 10.5px; line-height: 1.55;">Mixed beginner to advanced. Modules 1&ndash;2 assume only command-line familiarity; Modules 3&ndash;4 suit developers using Claude Code daily; Modules 5&ndash;6 target engineers packaging and distributing team tooling. Lessons are recommended in order, never locked.</p>
+        </div>
+        <div style="flex: 1;">
+          <h2 style="margin: 0 0 4px; color: #003767; font-size: 12px; font-weight: 800; letter-spacing: 0.02em;">Method and assessment</h2>
+          <p style="margin: 0; font-size: 10.5px; line-height: 1.55;">Docs-grounded readings with knowledge checks, a simulated terminal with per-lesson practice commands, an interactive .claude explorer, a prompt-template library and a course assistant. A 27-step hands-on lab and the Module 6 capstone verify a real setup with /context, /doctor, /hooks and /mcp.</p>
+        </div>
+      </div>
+
+      <h2 style="margin: 0 0 10px; color: #003767; font-size: 12px; font-weight: 800; letter-spacing: 0.02em; border-top: 2px solid #003767; padding-top: 10px;">Curriculum</h2>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px 24px;">
+        <sc-for list="{{ modules }}" as="mod" hint-placeholder-count="6">
+          <section>
+            <div style="display: flex; align-items: baseline; gap: 8px; margin-bottom: 3px;">
+              <span style="font-size: 8.5px; font-weight: 800; letter-spacing: 0.1em; color: #fff; background: {{ mod.accent }}; border-radius: 3px; padding: 2px 6px;">MOD {{ mod.num }}</span>
+              <h3 style="margin: 0; color: #003767; font-size: 12.5px; font-weight: 800;">{{ mod.title }}</h3>
+              <span style="font-size: 9px; font-weight: 700; color: #99AFC2; text-transform: uppercase; letter-spacing: 0.06em;">{{ mod.level }}</span>
+            </div>
+            <p style="margin: 0 0 5px; font-size: 10px; line-height: 1.5; color: #58585B;">{{ mod.desc }}</p>
+            <table style="border-collapse: collapse; width: 100%; font-size: 10.5px;">
+              <sc-for list="{{ mod.rows }}" as="r" hint-placeholder-count="5">
+                <tr>
+                  <td style="padding: 3px 8px 3px 0; border-top: 1px solid #EDF1F5; color: #99AFC2; font-weight: 700; width: 22px; vertical-align: top;">{{ r.num }}</td>
+                  <td style="padding: 3px 0; border-top: 1px solid #EDF1F5; color: #003767; font-weight: 650; vertical-align: top;">{{ r.title }}</td>
+                </tr>
+              </sc-for>
+            </table>
+          </section>
+        </sc-for>
+      </div>
+    </div>
+
+    <div style="flex: 0 0 auto; margin: 14px 34px 22px; padding-top: 10px; border-top: 1px solid #E1E7ED; display: flex; align-items: center; gap: 10px;">
+      <img src="assets/patterson-logo-navy.svg" alt="Patterson" style="height: 12px;">
+      <span style="font-size: 9.5px; color: #99AFC2; font-weight: 600;">Trusted Expertise. Unrivaled Support. &middot; Sources: code.claude.com/docs &middot; plugin-dev toolkit</span>
+    </div>
+  </section>
+</doc-page>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  renderVals() {
+    const mods = window.ACADEMY_MODULES || [];
+    const MODC = ['#003767', '#00A8E1', '#147EC2', '#00817D', '#522E91', '#7BC24D'];
+    let counter = 0;
+    const modules = mods.map((m, mi) => ({
+      num: m.num, title: m.title, level: m.level, desc: m.desc, accent: MODC[mi % MODC.length],
+      rows: m.lessons.map(l => {
+        counter += 1;
+        return { num: String(counter).padStart(2, '0'), title: l.title };
+      })
+    }));
+    const totalLessons = mods.reduce((a, m) => a + m.lessons.length, 0);
+    const labSteps = (window.ACADEMY_LAB || []).reduce((a, p) => a + p.steps.length, 0);
+    return {
+      facts: [
+        { v: '6', l: 'Modules' },
+        { v: String(totalLessons), l: 'Lessons' },
+        { v: String(labSteps), l: 'Lab steps' },
+        { v: '60+', l: 'Quiz questions' },
+      ],
+      modules,
+    };
+  }
+}
+</script>
+</body>
+</html>

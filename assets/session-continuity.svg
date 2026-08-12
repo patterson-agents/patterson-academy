@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 280" width="560" height="280">
+  <defs>
+    <marker id="a2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#58585B"></path>
+    </marker>
+  </defs>
+  <rect width="560" height="280" fill="white"></rect>
+  <text x="30" y="40" font-family="Figtree, Arial, sans-serif" font-size="13" font-weight="700" fill="#003767">Original session</text>
+  <g>
+    <circle cx="60" cy="80" r="11" fill="#003767"></circle><circle cx="114" cy="80" r="11" fill="#003767"></circle><circle cx="168" cy="80" r="11" fill="#003767"></circle>
+    <line x1="71" y1="80" x2="103" y2="80" stroke="#58585B" stroke-width="2"></line>
+    <line x1="125" y1="80" x2="157" y2="80" stroke="#58585B" stroke-width="2"></line>
+  </g>
+  
+  <line x1="179" y1="80" x2="330" y2="80" stroke="#00A8E1" stroke-width="2.5" marker-end="url(#a2)"></line>
+  <circle cx="352" cy="80" r="11" fill="#00A8E1"></circle>
+  <circle cx="406" cy="80" r="11" fill="#00A8E1"></circle>
+  <line x1="363" y1="80" x2="395" y2="80" stroke="#00A8E1" stroke-width="2"></line>
+  <text x="255" y="64" text-anchor="middle" font-family="Figtree, Arial, sans-serif" font-size="12.5" font-weight="700" fill="#147EC2">--continue / --resume</text>
+  <text x="440" y="76" font-family="Figtree, Arial, sans-serif" font-size="11.5" fill="#58585B">same session ID,</text>
+  <text x="440" y="91" font-family="Figtree, Arial, sans-serif" font-size="11.5" fill="#58585B">appends messages</text>
+  
+  <path d="M168,88 Q210,150 262,176" fill="none" stroke="#7BC24D" stroke-width="2.5" marker-end="url(#a2)"></path>
+  <text x="150" y="152" font-family="Figtree, Arial, sans-serif" font-size="12.5" font-weight="700" fill="#00817D">--fork-session / /branch</text>
+  <g>
+    <circle cx="284" cy="186" r="11" fill="white" stroke="#003767" stroke-width="2.5"></circle>
+    <circle cx="338" cy="186" r="11" fill="white" stroke="#003767" stroke-width="2.5"></circle>
+    <circle cx="392" cy="186" r="11" fill="#7BC24D"></circle>
+    <line x1="295" y1="186" x2="327" y2="186" stroke="#58585B" stroke-width="2"></line>
+    <line x1="349" y1="186" x2="381" y2="186" stroke="#58585B" stroke-width="2"></line>
+  </g>
+  <text x="284" y="222" font-family="Figtree, Arial, sans-serif" font-size="11.5" fill="#58585B">history copied into a</text>
+  <text x="284" y="237" font-family="Figtree, Arial, sans-serif" font-size="11.5" fill="#58585B">new session ID — the</text>
+  <text x="284" y="252" font-family="Figtree, Arial, sans-serif" font-size="11.5" fill="#58585B">original is unchanged</text>
+</svg>

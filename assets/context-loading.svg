@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 382" width="720" height="382">
+  <rect width="720" height="382" fill="white"></rect>
+  <text x="30" y="42" font-family="Figtree, Arial, sans-serif" font-size="16" font-weight="700" fill="#003767">What loads into context, and when</text>
+  <text x="470" y="72" font-family="Figtree, Arial, sans-serif" font-size="10.5" font-weight="700" letter-spacing="1.5" fill="#58585B">RELATIVE CONTEXT COST</text>
+  
+  <rect x="30" y="92" width="150" height="36" rx="8" fill="#003767"></rect>
+  <text x="105" y="115" text-anchor="middle" font-family="Figtree, Arial, sans-serif" font-size="13" font-weight="700" fill="white">CLAUDE.md</text>
+  <text x="196" y="107" font-family="Figtree, Arial, sans-serif" font-size="12" fill="#58585B">Full content at session start, in every request</text>
+  <rect x="470" y="114" width="220" height="8" rx="4" fill="#ECECEC"></rect>
+  <rect x="470" y="114" width="220" height="8" rx="4" fill="#003767"></rect>
+  <rect x="30" y="148" width="150" height="36" rx="8" fill="#00A8E1"></rect>
+  <text x="105" y="171" text-anchor="middle" font-family="Figtree, Arial, sans-serif" font-size="13" font-weight="700" fill="white">Skills</text>
+  <text x="196" y="163" font-family="Figtree, Arial, sans-serif" font-size="12" fill="#58585B">Descriptions at start; full content when used</text>
+  <rect x="470" y="170" width="220" height="8" rx="4" fill="#ECECEC"></rect>
+  <rect x="470" y="170" width="99" height="8" rx="4" fill="#00A8E1"></rect>
+  <rect x="30" y="204" width="150" height="36" rx="8" fill="#147EC2"></rect>
+  <text x="105" y="227" text-anchor="middle" font-family="Figtree, Arial, sans-serif" font-size="13" font-weight="700" fill="white">MCP servers</text>
+  <text x="196" y="219" font-family="Figtree, Arial, sans-serif" font-size="12" fill="#58585B">Tool names at start; schemas deferred until use</text>
+  <rect x="470" y="226" width="220" height="8" rx="4" fill="#ECECEC"></rect>
+  <rect x="470" y="226" width="66" height="8" rx="4" fill="#147EC2"></rect>
+  <rect x="30" y="260" width="150" height="36" rx="8" fill="#522E91"></rect>
+  <text x="105" y="283" text-anchor="middle" font-family="Figtree, Arial, sans-serif" font-size="13" font-weight="700" fill="white">Subagents</text>
+  <text x="196" y="275" font-family="Figtree, Arial, sans-serif" font-size="12" fill="#58585B">Fresh, isolated context when spawned</text>
+  <rect x="470" y="282" width="220" height="8" rx="4" fill="#ECECEC"></rect>
+  <text x="470" y="291" font-family="Figtree, Arial, sans-serif" font-size="10.5" fill="#522E91" font-weight="600">isolated window</text>
+  <rect x="30" y="316" width="150" height="36" rx="8" fill="#00817D"></rect>
+  <text x="105" y="339" text-anchor="middle" font-family="Figtree, Arial, sans-serif" font-size="13" font-weight="700" fill="white">Hooks</text>
+  <text x="196" y="331" font-family="Figtree, Arial, sans-serif" font-size="12" fill="#58585B">Run externally — zero unless output returned</text>
+  <rect x="470" y="338" width="220" height="8" rx="4" fill="#ECECEC"></rect>
+  <rect x="470" y="338" width="17.6" height="8" rx="4" fill="#00817D"></rect>
+</svg>

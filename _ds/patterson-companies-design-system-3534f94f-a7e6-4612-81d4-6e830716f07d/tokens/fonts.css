@@ -1,0 +1,46 @@
+/* ============================================================
+   Patterson Companies — Webfonts
+   ------------------------------------------------------------
+   BRAND FONT: **proxima-nova** (Adobe Fonts / Typekit) — the exact face
+   pattersondental.com & pattersonvet.com render, from kit `rul6mjk`.
+   font-family on the live sites: proxima-nova, Arial, sans-serif.
+
+   Self-hosted here from the licensed Typekit files supplied by the brand team.
+   Weights were verified by canvas advance-width measurement:
+     - proxima-nova-400.woff2     normal 400  (regular)
+     - proxima-nova-700.woff2     normal 700  (bold — ~4% wider)
+     - proxima-nova-italic.woff2  italic 400
+   Bold-italic is synthesized by the browser from the 700 face.
+
+   NOTE: these are licensed Adobe Fonts binaries, provided by the user for use
+   within this brand's properties. FALLBACK is "Figtree" (closest free Google
+   match) → system sans, used only if a face fails to load. Do NOT alias a
+   different family to the 'proxima-nova' name.
+   ============================================================ */
+
+/* Fallback display sans + monospace (must precede @font-face per CSS spec) */
+@import url('https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+
+@font-face {
+  font-family: 'proxima-nova';
+  src: url('../assets/fonts/proxima-nova-400.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'proxima-nova';
+  src: url('../assets/fonts/proxima-nova-700.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'proxima-nova';
+  src: url('../assets/fonts/proxima-nova-italic.woff2') format('woff2');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}

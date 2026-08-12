@@ -1,0 +1,1013 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <meta name="ext-resource-dependency" content="assets/agentic-loop.svg" data-resource-id="diag-loop" />
+  <meta name="ext-resource-dependency" content="assets/session-continuity.svg" data-resource-id="diag-session" />
+  <meta name="ext-resource-dependency" content="assets/context-loading.svg" data-resource-id="diag-context" />
+  <template id="__bundler_thumbnail">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-bg-color="#003767">
+      <rect width="512" height="512" fill="#003767"/>
+      <rect x="150" y="150" width="212" height="212" rx="26" fill="none" stroke="#00A8E1" stroke-width="10"/>
+      <path d="M200 256 h112 M292 232 l30 24 -30 24" fill="none" stroke="#8FD4F0" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="256" cy="205" r="12" fill="#7BC24D"/>
+    </svg>
+  </template>
+  <link rel="stylesheet" href="_ds/patterson-companies-design-system-3534f94f-a7e6-4612-81d4-6e830716f07d/tokens/fonts.css">
+  <link rel="stylesheet" href="_ds/patterson-companies-design-system-3534f94f-a7e6-4612-81d4-6e830716f07d/tokens/colors.css">
+  <link rel="stylesheet" href="_ds/patterson-companies-design-system-3534f94f-a7e6-4612-81d4-6e830716f07d/tokens/typography.css">
+  <link rel="stylesheet" href="_ds/patterson-companies-design-system-3534f94f-a7e6-4612-81d4-6e830716f07d/tokens/spacing.css">
+  <link rel="stylesheet" href="_ds/patterson-companies-design-system-3534f94f-a7e6-4612-81d4-6e830716f07d/tokens/effects.css">
+  <link rel="stylesheet" href="_ds/patterson-companies-design-system-3534f94f-a7e6-4612-81d4-6e830716f07d/tokens/base.css">
+  <link rel="stylesheet" href="_ds/patterson-companies-design-system-3534f94f-a7e6-4612-81d4-6e830716f07d/styles.css">
+  <script src="_ds/patterson-companies-design-system-3534f94f-a7e6-4612-81d4-6e830716f07d/_ds_bundle.js"></script>
+  <script src="academy-data-1.js"></script>
+  <script src="academy-data-2.js"></script>
+  <script src="academy-prompts.js"></script>
+  <script src="academy-lab.js"></script>
+  <style>
+    body { margin: 0; background: #0F171F; }
+    .acad-root {
+      color-scheme: light;
+      --bg:#F2F5F8; --surface:#ffffff; --surface-2:#F8FAFC; --surface-3:#EFF6FB;
+      --border:#E1E7ED; --border-2:#EDF1F5;
+      --text-strong:#003767; --text:#58585B; --text-body:#3D4B57;
+      --muted:#99AFC2; --muted-2:#7D97AB;
+      --brand:#00A8E1; --brand-ink:#147EC2; --primary-bg:#003767;
+      --hero-bg:#003767; --header-bg:#003767;
+      --chip-bg:#EFF6FB; --chip-border:#D3E5F2;
+      --pill-bg:#F1EDF7; --pill-border:#E0D6EF; --pill-text:#522E91;
+      --inline-bg:#EFF3F7; --inline-border:#DFE6EC; --inline-text:#003767;
+      --when-bg:#EFF6FB; --when-border:#D3E5F2; --when-label:#147EC2; --when-text:#0A5296;
+      --chat-assist:#F2F5F8;
+      --lvl-beg:#00817D; --lvl-beg-bg:#E7F4F3; --lvl-int:#147EC2; --lvl-int-bg:#EFF6FB; --lvl-adv:#522E91; --lvl-adv-bg:#F1EDF7;
+      --ok:#3D6B2E; --shadow:0 1px 3px rgba(0,55,103,0.06); --shadow-2:0 2px 8px rgba(0,55,103,0.12);
+    }
+    .acad-root[data-theme="dark"] {
+      color-scheme: dark;
+      --bg:#0F171F; --surface:#18232F; --surface-2:#131D27; --surface-3:#1C2C3A;
+      --border:#2A3742; --border-2:#222E39;
+      --text-strong:#E9F1F8; --text:#A6B2BE; --text-body:#C1CDD8;
+      --muted:#7B8A98; --muted-2:#8598A8;
+      --brand:#22B4E8; --brand-ink:#5AC0EE; --primary-bg:#14608F;
+      --hero-bg:#0B2134; --header-bg:#0A1826;
+      --chip-bg:#12293A; --chip-border:#234863;
+      --pill-bg:#241C33; --pill-border:#3A2E52; --pill-text:#BCA0E8;
+      --inline-bg:#1E2C38; --inline-border:#2C3B48; --inline-text:#9CD3F0;
+      --when-bg:#10293C; --when-border:#234A66; --when-label:#5CC0EE; --when-text:#9AD0F2;
+      --chat-assist:#1B2732;
+      --lvl-beg:#35B5AF; --lvl-beg-bg:#0E2B2A; --lvl-int:#5AC0EE; --lvl-int-bg:#0F2A3C; --lvl-adv:#B79BE6; --lvl-adv-bg:#241C33;
+      --ok:#9BD36F; --shadow:0 1px 3px rgba(0,0,0,0.4); --shadow-2:0 3px 10px rgba(0,0,0,0.45);
+    }
+    a { color: var(--brand-ink); text-decoration: none; }
+    a:hover { color: var(--brand); text-decoration: underline; }
+    @keyframes acadLoopPulse {
+      0%, 26% { box-shadow: 0 0 0 4px rgba(0,168,225,0.35); transform: translateY(-2px); }
+      33%, 100% { box-shadow: 0 0 0 0 rgba(0,168,225,0); transform: translateY(0); }
+    }
+    @keyframes acadBlink { 0%, 49% { opacity: 1; } 50%, 100% { opacity: 0; } }
+    @media (max-width: 1080px) { .acad-progress { display: none !important; } }
+    @media (max-width: 860px) { .acad-tree { display: none !important; } }
+  </style>
+</helmet>
+
+<div class="acad-root" data-theme="{{ theme }}" data-screen-label="Academy shell" style="height: 100vh; display: flex; flex-direction: column; font-family: proxima-nova, Figtree, Arial, sans-serif; color: var(--text); background: var(--bg); overflow: hidden;">
+
+  <!-- ===================== Top bar ===================== -->
+  <header style="flex: 0 0 auto; background: var(--header-bg); display: flex; align-items: center; gap: 24px; padding: 0 24px; height: 60px; border-bottom: 1px solid rgba(255,255,255,0.06);">
+    <img src="assets/patterson-logo-white.svg" alt="Patterson" style="height: 22px; display: block;">
+    <div style="display: flex; flex-direction: column; gap: 1px; border-left: 1px solid rgba(255,255,255,0.25); padding-left: 18px; flex: 0 0 auto; overflow: hidden;">
+      <span style="color: #fff; font-size: 15px; font-weight: 700; letter-spacing: 0.02em; white-space: nowrap;">Patterson Academy</span>
+      <span style="color: #8FD4F0; font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; white-space: nowrap;">Claude Code Track</span>
+    </div>
+    <nav style="display: flex; align-items: center; gap: 4px; margin-left: 20px; flex: 0 1 auto; min-width: 0;">
+      <button onClick="{{ goOverview }}" style="{{ tabOverviewStyle }}">Overview</button>
+      <button onClick="{{ goCurriculum }}" style="{{ tabCurriculumStyle }}">Curriculum</button>
+      <button onClick="{{ goPrompts }}" style="{{ tabPromptsStyle }}">Prompt Library</button>
+      <button onClick="{{ goLab }}" style="{{ tabLabStyle }}">Lab</button>
+      <a href="Lesson Plan.dc.html" style="font: inherit; font-size: 13.5px; font-weight: 600; color: rgba(255,255,255,0.85); padding: 8px 14px; border-radius: 999px; text-decoration: none;">Syllabus</a>
+    </nav>
+    <div style="margin-left: auto; display: flex; align-items: center; gap: 14px; flex: 0 0 auto;">
+      <div style="display: flex; align-items: center; gap: 10px;" class="acad-progress">
+        <div style="width: 96px; height: 6px; background: rgba(255,255,255,0.18); border-radius: 3px; overflow: hidden;">
+          <div style="{{ progressBarStyle }}"></div>
+        </div>
+        <span style="color: #8FD4F0; font-size: 12px; font-weight: 700;">{{ progressLabel }}</span>
+      </div>
+      <button onClick="{{ toggleTheme }}" title="Toggle light / dark" style="flex: 0 0 auto; width: 34px; height: 34px; border-radius: 50%; border: 1.5px solid rgba(255,255,255,0.35); background: transparent; color: #fff; cursor: pointer; display: flex; align-items: center; justify-content: center;" style-hover="border-color: #00A8E1; color: #8FD4F0;">
+        <sc-if value="{{ isDark }}" hint-placeholder-val="{{ false }}">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg>
+        </sc-if>
+        <sc-if value="{{ isLight }}" hint-placeholder-val="{{ true }}">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"></path></svg>
+        </sc-if>
+      </button>
+      <button onClick="{{ toggleChat }}" style="{{ chatBtnStyle }}">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+        <span>Assistant</span>
+      </button>
+    </div>
+  </header>
+
+  <div style="flex: 1; display: flex; min-height: 0;">
+    <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; min-height: 0;">
+
+      <!-- ===================== Overview ===================== -->
+      <sc-if value="{{ isOverview }}" hint-placeholder-val="{{ true }}">
+        <div data-screen-label="Course overview" style="flex: 1; overflow: auto; min-height: 0; background: var(--bg);">
+          <section style="background: var(--hero-bg); padding: 56px 48px 48px; position: relative; overflow: hidden;">
+            <div style="position: relative;">
+              <div style="color: var(--brand); font-size: 12px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 14px;">A Patterson Academy Course</div>
+              <h1 style="margin: 0 0 14px; color: #fff; font-size: 42px; line-height: 1.12; font-weight: 800; letter-spacing: -0.01em; max-width: 720px; text-wrap: pretty;">Learn Claude Code</h1>
+              <p style="margin: 0 0 28px; color: #C9DCEA; font-size: 17px; line-height: 1.6; max-width: 640px;">The agentic loop, the context window, the .claude directory, and every extension point &mdash; skills, subagents, hooks, MCP, plugins, and marketplaces. Built lesson by lesson on the official Claude Code documentation.</p>
+              <div style="display: flex; gap: 12px; align-items: center; flex-wrap: wrap;">
+                <x-import component-from-global-scope="PattersonCompaniesDesignSystem_3534f9.Button" variant="sky" size="lg" on-click="{{ startCourse }}" hint-size="200px,52px">{{ startLabel }}</x-import>
+                <x-import component-from-global-scope="PattersonCompaniesDesignSystem_3534f9.Button" variant="onDark" size="lg" on-click="{{ goPrompts }}" hint-size="200px,52px">Browse the Prompt Library</x-import>
+              </div>
+              <div style="display: flex; gap: 48px; margin-top: 44px; flex-wrap: wrap;">
+                <sc-for list="{{ heroStats }}" as="st" hint-placeholder-count="4">
+                  <div style="display: flex; flex-direction: column; gap: 2px;">
+                    <span style="color: var(--brand); font-size: 34px; font-weight: 800; line-height: 1;">{{ st.v }}</span>
+                    <span style="color: #9FB9CC; font-size: 12.5px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase;">{{ st.l }}</span>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+          </section>
+
+          <section style="padding: 44px 48px 72px;">
+            <h2 style="margin: 0 0 6px; color: var(--text-strong); font-size: 24px; font-weight: 800;">Six modules, beginner to advanced</h2>
+            <p style="margin: 0 0 26px; font-size: 14.5px; color: var(--text);">Recommended in order, never locked. The simulated terminal, the interactive .claude directory explorer, and the course assistant let you try everything safely as you read.</p>
+            <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(430px, 1fr)); gap: 18px;">
+              <sc-for list="{{ moduleCards }}" as="mod" hint-placeholder-count="6">
+                <div style="background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 22px 24px 18px; box-shadow: var(--shadow); display: flex; flex-direction: column; border-top: 4px solid; border-top-color: {{ mod.accent }};">
+                  <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
+                    <span style="font-size: 12px; font-weight: 800; color: var(--muted);">MODULE {{ mod.num }}</span>
+                    <span style="{{ mod.levelStyle }}">{{ mod.level }}</span>
+                    <span style="margin-left: auto; font-size: 12px; font-weight: 700; color: {{ mod.doneColor }};">{{ mod.doneLabel }}</span>
+                  </div>
+                  <h3 style="margin: 0 0 6px; color: var(--text-strong); font-size: 18px; font-weight: 750;">{{ mod.title }}</h3>
+                  <p style="margin: 0 0 12px; font-size: 13.5px; line-height: 1.55; color: var(--text);">{{ mod.desc }}</p>
+                  <div style="display: flex; flex-direction: column; gap: 2px;">
+                    <sc-for list="{{ mod.lessons }}" as="ls" hint-placeholder-count="5">
+                      <button onClick="{{ ls.open }}" style="display: flex; align-items: center; gap: 8px; padding: 5px 8px; margin: 0 -8px; border: 0; background: transparent; border-radius: 6px; cursor: pointer; font: inherit; font-size: 13.5px; color: var(--text-body); text-align: left;" style-hover="background: var(--surface-3); color: var(--text-strong);">
+                        <span style="font-size: 11px; font-weight: 700; color: {{ ls.numColor }}; min-width: 20px;">{{ ls.numLabel }}</span>
+                        <span style="flex: 1;">{{ ls.title }}</span>
+                      </button>
+                    </sc-for>
+                  </div>
+                </div>
+              </sc-for>
+            </div>
+          </section>
+        </div>
+      </sc-if>
+
+      <!-- ===================== Lesson view ===================== -->
+      <sc-if value="{{ isLesson }}" hint-placeholder-val="{{ false }}">
+        <div data-screen-label="Lesson view" style="flex: 1; display: flex; min-height: 0; background: var(--bg);">
+
+          <!-- Sidebar curriculum tree -->
+          <aside class="acad-tree" style="flex: 0 0 272px; background: var(--surface); border-right: 1px solid var(--border); overflow: auto; padding: 14px 10px 24px;">
+            <sc-for list="{{ navModules }}" as="nm" hint-placeholder-count="6">
+              <div style="margin-bottom: 10px;">
+                <div style="display: flex; align-items: center; gap: 8px; padding: 8px 10px 4px;">
+                  <span style="font-size: 10.5px; font-weight: 800; letter-spacing: 0.1em; color: var(--muted);">MODULE {{ nm.num }}</span>
+                  <span style="font-size: 11.5px; font-weight: 700; color: var(--text-strong); overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">{{ nm.title }}</span>
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 1px;">
+                  <sc-for list="{{ nm.lessons }}" as="nl" hint-placeholder-count="5">
+                    <button onClick="{{ nl.open }}" style="{{ nl.style }}" style-hover="background: var(--surface-3);">
+                      <span style="{{ nl.dotStyle }}"></span>
+                      <span style="flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; text-align: left;">{{ nl.title }}</span>
+                      <sc-if value="{{ nl.done }}" hint-placeholder-val="{{ false }}">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#7BC24D" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                      </sc-if>
+                    </button>
+                  </sc-for>
+                </div>
+              </div>
+            </sc-for>
+          </aside>
+
+          <!-- Lesson content (scrolls) + pinned footer nav -->
+          <main style="flex: 1; min-width: 0; display: flex; flex-direction: column; min-height: 0;">
+            <div style="flex: 1; overflow: auto; padding: 30px 44px 36px;">
+              <div style="display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); margin-bottom: 10px;">
+                <span>Module {{ curModuleNum }}</span>
+                <span style="color: var(--border);">/</span>
+                <span style="color: var(--brand-ink);">Lesson {{ curLessonNum }} of {{ totalLessons }}</span>
+              </div>
+              <h1 style="margin: 0 0 14px; color: var(--text-strong); font-size: 30px; font-weight: 800; letter-spacing: -0.01em; line-height: 1.15; max-width: 900px;">{{ curTitle }}</h1>
+              <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 22px;">
+                <sc-for list="{{ curDocs }}" as="doc" hint-placeholder-count="1">
+                  <a href="{{ doc.href }}" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 600; color: var(--brand-ink); background: var(--chip-bg); border: 1px solid var(--chip-border); border-radius: 999px; padding: 4px 12px; text-decoration: none;">
+                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                    <span>{{ doc.t }}</span>
+                  </a>
+                </sc-for>
+              </div>
+
+              <div onClick="{{ onBodyClick }}">{{ lessonBody }}</div>
+
+              <!-- Widget: agentic loop animation -->
+              <sc-if value="{{ showLoopWidget }}" hint-placeholder-val="{{ false }}">
+                <div style="margin: 26px 0; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 22px 24px;">
+                  <div style="font-size: 11px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: var(--brand-ink); margin-bottom: 16px;">The loop in motion</div>
+                  <div style="display: flex; align-items: center; gap: 0;">
+                    <sc-for list="{{ loopStages }}" as="stg" hint-placeholder-count="3">
+                      <div style="flex: 1; display: flex; align-items: center; min-width: 0;">
+                        <div style="{{ stg.style }}">
+                          <span style="font-size: 20px; line-height: 1;">{{ stg.icon }}</span>
+                          <span style="font-size: 13.5px; font-weight: 750; color: var(--text-strong);">{{ stg.name }}</span>
+                          <span style="font-size: 11.5px; color: var(--text); text-align: center; line-height: 1.4;">{{ stg.sub }}</span>
+                        </div>
+                        <sc-if value="{{ stg.arrow }}" hint-placeholder-val="{{ false }}">
+                          <svg width="26" height="14" viewBox="0 0 26 14" style="flex: 0 0 auto; margin: 0 4px;"><path d="M2 7 H20 M15 2 L21 7 L15 12" fill="none" stroke="var(--muted)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                        </sc-if>
+                      </div>
+                    </sc-for>
+                  </div>
+                  <div style="display: flex; align-items: center; gap: 8px; margin-top: 14px; font-size: 12px; color: #00817D; font-weight: 600;">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"></polyline><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path></svg>
+                    <span>repeats until the task is complete &mdash; interrupt any time with Esc</span>
+                  </div>
+                </div>
+              </sc-if>
+
+              <!-- Widget: simulated terminal -->
+              <sc-if value="{{ showTermWidget }}" hint-placeholder-val="{{ false }}">
+                <sc-if value="{{ hasTasks }}" hint-placeholder-val="{{ false }}">
+                  <div style="margin: 26px 0 -10px; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 18px 20px 14px; box-shadow: var(--shadow);">
+                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
+                      <span style="font-size: 11px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: var(--brand-ink);">Practice</span>
+                      <span style="font-size: 12px; font-weight: 700; color: var(--muted);">{{ tasksLabel }}</span>
+                    </div>
+                    <div style="display: flex; flex-direction: column; gap: 6px;">
+                      <sc-for list="{{ lessonTasks }}" as="tk" hint-placeholder-count="3">
+                        <button onClick="{{ tk.run }}" style="{{ tk.style }}" style-hover="border-color: #00A8E1; background: var(--surface-3);">
+                          <span style="{{ tk.dotStyle }}">{{ tk.tick }}</span>
+                          <span style="flex: 1; text-align: left; font-size: 13.5px; color: var(--text-body);">{{ tk.ask }}</span>
+                          <span style="font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 11.5px; color: var(--inline-text); background: var(--inline-bg); border: 1px solid var(--inline-border); border-radius: 5px; padding: 2px 8px; white-space: nowrap;">{{ tk.cmd }}</span>
+                        </button>
+                      </sc-for>
+                    </div>
+                  </div>
+                </sc-if>
+                <div style="margin: 26px 0; border: 1px solid #16354D; border-radius: 10px; overflow: hidden; box-shadow: var(--shadow-2);">
+                  <div style="display: flex; align-items: center; gap: 8px; background: #0B2237; padding: 8px 14px; border-bottom: 1px solid #16354D;">
+                    <span style="width: 10px; height: 10px; border-radius: 50%; background: #E06A5A;"></span>
+                    <span style="width: 10px; height: 10px; border-radius: 50%; background: #E8B84C;"></span>
+                    <span style="width: 10px; height: 10px; border-radius: 50%; background: #7BC24D;"></span>
+                    <span style="margin-left: 8px; font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 11.5px; color: #7D97AB;">simulated terminal &mdash; safe to experiment</span>
+                    <button onClick="{{ termClear }}" style="margin-left: auto; font: inherit; font-size: 11px; font-weight: 700; color: #7D97AB; background: transparent; border: 1px solid #2A4A66; border-radius: 6px; padding: 2px 10px; cursor: pointer;" style-hover="color: #fff; border-color: #00A8E1;">clear</button>
+                  </div>
+                  <div style="background: #0E2438; padding: 14px 16px; min-height: 130px; max-height: 300px; overflow: auto; font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 12.5px; line-height: 1.65;">
+                    <sc-for list="{{ termLines }}" as="tl" hint-placeholder-count="2">
+                      <div style="white-space: pre-wrap; color: {{ tl.color }};">{{ tl.text }}</div>
+                    </sc-for>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                      <span style="color: #7D97AB;">~/my-app $</span>
+                      <input value="{{ termInput }}" onChange="{{ termType }}" onKeyDown="{{ termKey }}" placeholder="type a command…" style="flex: 1; background: transparent; border: 0; outline: none; color: #DBE9F4; font: inherit; caret-color: #00A8E1;">
+                    </div>
+                  </div>
+                  <div style="display: flex; gap: 6px; flex-wrap: wrap; background: #0B2237; padding: 10px 14px; border-top: 1px solid #16354D;">
+                    <span style="font-size: 10.5px; font-weight: 800; letter-spacing: 0.1em; color: #7D97AB; align-self: center;">TRY:</span>
+                    <sc-for list="{{ termChips }}" as="tc" hint-placeholder-count="3">
+                      <button onClick="{{ tc.run }}" style="font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 11.5px; color: #8FD4F0; background: rgba(0,168,225,0.12); border: 1px solid rgba(0,168,225,0.35); border-radius: 999px; padding: 3px 12px; cursor: pointer;" style-hover="background: rgba(0,168,225,0.28); color: #fff;">{{ tc.cmd }}</button>
+                    </sc-for>
+                  </div>
+                </div>
+              </sc-if>
+
+              <!-- Widget: .claude directory explorer -->
+              <sc-if value="{{ showExplorerWidget }}" hint-placeholder-val="{{ false }}">
+                <div style="margin: 26px 0; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; background: var(--surface); display: flex; min-height: 420px; box-shadow: var(--shadow);">
+                  <div style="flex: 0 0 236px; border-right: 1px solid var(--border-2); background: var(--surface-2); display: flex; flex-direction: column;">
+                    <div style="display: flex; gap: 4px; padding: 8px 8px 6px; border-bottom: 1px solid var(--border-2);">
+                      <button onClick="{{ expTabProject }}" style="{{ expTabProjectStyle }}">Project</button>
+                      <button onClick="{{ expTabGlobal }}" style="{{ expTabGlobalStyle }}">Global (~/)</button>
+                    </div>
+                    <div style="flex: 1; overflow: auto; padding: 6px 0;">
+                      <sc-for list="{{ expNodes }}" as="en" hint-placeholder-count="8">
+                        <button onClick="{{ en.click }}" style="{{ en.style }}" style-hover="background: var(--surface-3);">
+                          <span style="width: 12px; font-size: 10px; color: var(--muted); flex: 0 0 auto;">{{ en.caret }}</span>
+                          <span style="{{ en.iconStyle }}"></span>
+                          <span style="flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; text-align: left;">{{ en.label }}</span>
+                          <span style="{{ en.badgeStyle }}"></span>
+                        </button>
+                      </sc-for>
+                    </div>
+                    <div style="display: flex; gap: 10px; flex-wrap: wrap; padding: 8px 12px; border-top: 1px solid var(--border-2);">
+                      <sc-for list="{{ expLegend }}" as="lg" hint-placeholder-count="4">
+                        <span style="display: inline-flex; align-items: center; gap: 4px; font-size: 10px; font-weight: 600; color: var(--muted);"><span style="width: 6px; height: 6px; border-radius: 50%; background: {{ lg.c }};"></span>{{ lg.t }}</span>
+                      </sc-for>
+                    </div>
+                  </div>
+                  <div style="flex: 1; min-width: 0; overflow: auto; padding: 20px 24px;">
+                    <div style="font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 11px; color: var(--muted); margin-bottom: 8px;">{{ expPath }}</div>
+                    <div style="display: flex; align-items: baseline; gap: 10px; margin-bottom: 4px;">
+                      <h3 style="margin: 0; color: var(--text-strong); font-size: 19px; font-weight: 800; font-family: ui-monospace, Menlo, Consolas, monospace;">{{ expTitle }}</h3>
+                      <span style="{{ expBadgePillStyle }}">{{ expBadgeLabel }}</span>
+                    </div>
+                    <p style="margin: 0 0 12px; font-size: 13.5px; color: var(--text); font-weight: 600;">{{ expOneLiner }}</p>
+                    <div style="background: var(--when-bg); border: 1px solid var(--when-border); border-radius: 8px; padding: 8px 12px; margin-bottom: 12px;">
+                      <div style="font-size: 9.5px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: var(--when-label); margin-bottom: 2px;">When it loads</div>
+                      <div style="font-size: 12.5px; color: var(--when-text); font-weight: 550;">{{ expWhen }}</div>
+                    </div>
+                    <p style="margin: 0 0 14px; font-size: 13.5px; line-height: 1.65; color: var(--text-body);">{{ expDesc }}</p>
+                    <div onClick="{{ onBodyClick }}">{{ expExample }}</div>
+                  </div>
+                </div>
+              </sc-if>
+
+              <!-- Mark complete -->
+              <div style="display: flex; align-items: center; gap: 12px; margin-top: 26px;">
+                <button onClick="{{ markComplete }}" style="{{ completeBtnStyle }}">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                  <span>{{ completeLabel }}</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Pinned footer nav (aligned to bottom, like the header at top) -->
+            <div style="flex: 0 0 auto; border-top: 1px solid var(--border); background: var(--surface); padding: 12px 44px; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; align-items: stretch;">
+              <sc-if value="{{ hasPrev }}" hint-placeholder-val="{{ false }}">
+                <button onClick="{{ goPrev }}" style="grid-column: 1; display: flex; flex-direction: column; gap: 2px; align-items: flex-start; padding: 8px 16px; background: transparent; border: 1px solid var(--border); border-radius: 10px; cursor: pointer; font: inherit;" style-hover="border-color: #00A8E1; background: var(--surface-3);">
+                  <span style="font-size: 10px; font-weight: 800; letter-spacing: 0.1em; color: var(--muted);">&larr; PREVIOUS</span>
+                  <span style="font-size: 13.5px; font-weight: 700; color: var(--text-strong);">{{ prevTitle }}</span>
+                </button>
+              </sc-if>
+              <sc-if value="{{ hasNext }}" hint-placeholder-val="{{ false }}">
+                <button onClick="{{ goNext }}" style="grid-column: 2; display: flex; flex-direction: column; gap: 2px; align-items: flex-end; padding: 8px 16px; background: transparent; border: 1px solid var(--border); border-radius: 10px; cursor: pointer; font: inherit;" style-hover="border-color: #00A8E1; background: var(--surface-3);">
+                  <span style="font-size: 10px; font-weight: 800; letter-spacing: 0.1em; color: var(--muted);">NEXT &rarr;</span>
+                  <span style="font-size: 13.5px; font-weight: 700; color: var(--text-strong);">{{ nextTitle }}</span>
+                </button>
+              </sc-if>
+            </div>
+          </main>
+        </div>
+      </sc-if>
+
+      <!-- ===================== Prompt Library ===================== -->
+      <sc-if value="{{ isPrompts }}" hint-placeholder-val="{{ false }}">
+        <div data-screen-label="Prompt Library" style="flex: 1; overflow: auto; min-height: 0; padding: 34px 44px 80px; background: var(--bg);">
+          <div>
+            <div style="color: var(--brand-ink); font-size: 12px; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase; margin-bottom: 8px;">Prompt Library</div>
+            <h1 style="margin: 0 0 8px; color: var(--text-strong); font-size: 30px; font-weight: 800;">Prompt templates</h1>
+            <p style="margin: 0 0 30px; font-size: 14.5px; line-height: 1.6; max-width: 720px; color: var(--text);">Long, parameterized prompt templates from the plugin-dev toolkit and the official docs &mdash; the same ones referenced in lessons. Toggle Preview / Raw, copy, or equip the assistant with a template and ask it to apply one to your project.</p>
+            <div style="display: flex; flex-direction: column; gap: 22px;" onClick="{{ onBodyClick }}">
+              <sc-for list="{{ promptCards }}" as="pc" hint-placeholder-count="4">
+                <div style="background: var(--surface); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; box-shadow: var(--shadow);">
+                  <div style="padding: 18px 22px 14px;">
+                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 4px; flex-wrap: wrap;">
+                      <h3 style="margin: 0; color: var(--text-strong); font-size: 17px; font-weight: 750;">{{ pc.title }}</h3>
+                      <span style="font-size: 10.5px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: #00817D; background: rgba(0,129,125,0.12); border-radius: 999px; padding: 2px 10px;">{{ pc.lang }}</span>
+                      <button onClick="{{ pc.equip }}" style="{{ pc.equipStyle }}">{{ pc.equipLabel }}</button>
+                    </div>
+                    <div style="font-size: 11.5px; color: var(--muted); font-weight: 600; margin-bottom: 8px;">{{ pc.source }}</div>
+                    <p style="margin: 0 0 10px; font-size: 13.5px; line-height: 1.6; color: var(--text-body);">{{ pc.desc }}</p>
+                    <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+                      <sc-for list="{{ pc.params }}" as="pp" hint-placeholder-count="2">
+                        <span style="font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 11px; color: var(--pill-text); background: var(--pill-bg); border: 1px solid var(--pill-border); border-radius: 6px; padding: 2px 8px;" title="{{ pp.d }}">{{ pp.n }}</span>
+                      </sc-for>
+                    </div>
+                  </div>
+                  <div>{{ pc.codeEl }}</div>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </div>
+      </sc-if>
+      <!-- ===================== Hands-on lab ===================== -->
+      <sc-if value="{{ isLab }}" hint-placeholder-val="{{ false }}">
+        <div data-screen-label="Hands-on lab" style="flex: 1; overflow: auto; min-height: 0; background: var(--bg);">
+          <section style="background: var(--hero-bg); padding: 40px 44px 34px;">
+            <div style="color: var(--brand); font-size: 12px; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 12px;">Hands-on lab</div>
+            <h1 style="margin: 0 0 10px; color: #fff; font-size: 34px; font-weight: 800; letter-spacing: -0.01em;">Set up Claude Code on a real repository</h1>
+            <p style="margin: 0 0 24px; color: #C9DCEA; font-size: 16px; line-height: 1.6; max-width: 700px;">Six phases, done in your own project alongside the lessons. Work top to bottom, tick each step as you finish it. Your progress is saved on this machine.</p>
+            <div style="display: flex; align-items: center; gap: 16px; flex-wrap: wrap;">
+              <div style="width: 260px; height: 8px; background: rgba(255,255,255,0.18); border-radius: 4px; overflow: hidden;">
+                <div style="{{ labBarStyle }}"></div>
+              </div>
+              <span style="color: #8FD4F0; font-size: 13px; font-weight: 700;">{{ labProgressLabel }}</span>
+              <button onClick="{{ labReset }}" style="font: inherit; font-size: 12px; font-weight: 700; color: rgba(255,255,255,0.75); background: transparent; border: 1px solid rgba(255,255,255,0.3); border-radius: 999px; padding: 5px 14px; cursor: pointer;" style-hover="border-color: #00A8E1; color: #fff;">Reset the lab</button>
+            </div>
+          </section>
+          <section style="padding: 34px 44px 80px; display: flex; flex-direction: column; gap: 22px;" onClick="{{ onBodyClick }}">
+            <sc-for list="{{ labPhases }}" as="ph" hint-placeholder-count="6">
+              <div style="background: var(--surface); border: 1px solid var(--border); border-radius: 10px; box-shadow: var(--shadow); overflow: hidden;">
+                <div style="display: flex; align-items: flex-start; gap: 14px; padding: 20px 24px 16px; border-bottom: 1px solid var(--border-2);">
+                  <span style="{{ ph.numStyle }}">{{ ph.num }}</span>
+                  <div style="flex: 1; min-width: 0;">
+                    <h2 style="margin: 0 0 4px; color: var(--text-strong); font-size: 19px; font-weight: 800;">{{ ph.title }}</h2>
+                    <p style="margin: 0; font-size: 13.5px; line-height: 1.55; color: var(--text);">{{ ph.goal }}</p>
+                  </div>
+                  <span style="{{ ph.countStyle }}">{{ ph.countLabel }}</span>
+                </div>
+                <div style="display: flex; flex-direction: column;">
+                  <sc-for list="{{ ph.steps }}" as="st" hint-placeholder-count="4">
+                    <div style="{{ st.rowStyle }}">
+                      <button onClick="{{ st.toggle }}" title="Mark this step done" style="{{ st.boxStyle }}" style-hover="border-color: #00A8E1;">{{ st.tick }}</button>
+                      <div style="flex: 1; min-width: 0;">
+                        <div style="{{ st.titleStyle }}">{{ st.title }}</div>
+                        <div>{{ st.bodyEl }}</div>
+                        <sc-if value="{{ st.hasCmd }}" hint-placeholder-val="{{ false }}">
+                          <div style="display: flex; align-items: center; gap: 8px; margin-top: 8px;">
+                            <span style="font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 12px; color: var(--inline-text); background: var(--inline-bg); border: 1px solid var(--inline-border); border-radius: 6px; padding: 3px 10px;">{{ st.cmd }}</span>
+                            <button onClick="{{ st.copy }}" style="font: inherit; font-size: 11px; font-weight: 700; color: var(--muted-2); background: transparent; border: 1px solid var(--border); border-radius: 999px; padding: 3px 10px; cursor: pointer;" style-hover="border-color: #00A8E1; color: var(--brand-ink);">{{ st.copyLabel }}</button>
+                          </div>
+                        </sc-if>
+                        <div>{{ st.codeEl }}</div>
+                      </div>
+                    </div>
+                  </sc-for>
+                </div>
+              </div>
+            </sc-for>
+          </section>
+        </div>
+      </sc-if>
+    </div>
+
+    <!-- ===================== Assistant drawer ===================== -->
+    <sc-if value="{{ chatOpen }}" hint-placeholder-val="{{ false }}">
+      <aside data-screen-label="Claude assistant" style="flex: 0 0 340px; background: var(--surface); border-left: 1px solid var(--border); display: flex; flex-direction: column; min-height: 0;">
+        <div style="flex: 0 0 auto; display: flex; align-items: center; gap: 10px; padding: 14px 16px; border-bottom: 1px solid var(--border-2); background: var(--surface-2);">
+          <span style="width: 8px; height: 8px; border-radius: 50%; background: #7BC24D;"></span>
+          <div style="display: flex; flex-direction: column;">
+            <span style="font-size: 13.5px; font-weight: 750; color: var(--text-strong);">Course assistant</span>
+            <span style="font-size: 11px; color: var(--muted); font-weight: 600;">knows this lesson &middot; powered by Claude</span>
+          </div>
+          <button onClick="{{ toggleChat }}" style="margin-left: auto; border: 0; background: transparent; cursor: pointer; color: var(--muted); font-size: 16px; line-height: 1; padding: 4px;" style-hover="color: var(--text-strong);">&#10005;</button>
+        </div>
+        <sc-if value="{{ hasEquipped }}" hint-placeholder-val="{{ false }}">
+          <div style="flex: 0 0 auto; display: flex; gap: 6px; flex-wrap: wrap; padding: 10px 14px; border-bottom: 1px solid var(--border-2);">
+            <span style="font-size: 10px; font-weight: 800; letter-spacing: 0.1em; color: var(--muted); align-self: center;">EQUIPPED:</span>
+            <sc-for list="{{ equippedChips }}" as="eq" hint-placeholder-count="1">
+              <button onClick="{{ eq.remove }}" title="click to unequip" style="display: inline-flex; align-items: center; gap: 5px; font-size: 11px; font-weight: 700; color: var(--pill-text); background: var(--pill-bg); border: 1px solid var(--pill-border); border-radius: 999px; padding: 3px 10px; cursor: pointer;" style-hover="border-color: var(--pill-text);"><span>{{ eq.t }}</span><span style="opacity: 0.55;">&#10005;</span></button>
+            </sc-for>
+          </div>
+        </sc-if>
+        <div style="flex: 1; overflow: auto; padding: 16px 14px; display: flex; flex-direction: column; gap: 12px; min-height: 0;">
+          <sc-for list="{{ chatMsgs }}" as="cm" hint-placeholder-count="1">
+            <div style="{{ cm.style }}">{{ cm.text }}</div>
+          </sc-for>
+          <sc-if value="{{ chatBusy }}" hint-placeholder-val="{{ false }}">
+            <div style="align-self: flex-start; background: var(--chat-assist); border-radius: 12px 12px 12px 4px; padding: 10px 14px; font-size: 13px; color: var(--muted);">thinking&hellip;</div>
+          </sc-if>
+          <sc-if value="{{ chatEmpty }}" hint-placeholder-val="{{ false }}">
+            <div style="display: flex; flex-direction: column; gap: 8px; margin-top: 4px;">
+              <div style="font-size: 12px; color: var(--muted); font-weight: 600;">Ask about the current lesson, or try:</div>
+              <sc-for list="{{ chatStarters }}" as="cs" hint-placeholder-count="3">
+                <button onClick="{{ cs.send }}" style="text-align: left; font: inherit; font-size: 12.5px; color: var(--brand-ink); background: var(--chip-bg); border: 1px solid var(--chip-border); border-radius: 8px; padding: 8px 12px; cursor: pointer;" style-hover="border-color: #00A8E1;">{{ cs.t }}</button>
+              </sc-for>
+            </div>
+          </sc-if>
+        </div>
+        <div style="flex: 0 0 auto; display: flex; gap: 8px; padding: 12px 14px; border-top: 1px solid var(--border-2);">
+          <input value="{{ chatInput }}" onChange="{{ chatType }}" onKeyDown="{{ chatKey }}" placeholder="Ask the assistant…" style="flex: 1; font: inherit; font-size: 13px; padding: 9px 12px; border: 1px solid var(--border); border-radius: 999px; outline: none; color: var(--text-strong); background: var(--surface);" style-focus="border-color: #00A8E1; box-shadow: 0 0 0 3px rgba(0,168,225,0.18);">
+          <button onClick="{{ chatSend }}" style="flex: 0 0 auto; width: 36px; height: 36px; border-radius: 50%; border: 0; background: var(--primary-bg); color: #fff; cursor: pointer; display: flex; align-items: center; justify-content: center;" style-hover="background: #00A8E1;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+          </button>
+        </div>
+      </aside>
+    </sc-if>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:null,&quot;accent&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#00A8E1&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;options&quot;:[&quot;#00A8E1&quot;,&quot;#147EC2&quot;,&quot;#00817D&quot;],&quot;section&quot;:&quot;Appearance&quot;},&quot;defaultTheme&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;dark&quot;,&quot;tsType&quot;:&quot;'light' | 'dark'&quot;,&quot;options&quot;:[&quot;light&quot;,&quot;dark&quot;],&quot;section&quot;:&quot;Appearance&quot;},&quot;assistantModel&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;sonnet&quot;,&quot;tsType&quot;:&quot;'haiku' | 'sonnet'&quot;,&quot;options&quot;:[&quot;haiku&quot;,&quot;sonnet&quot;],&quot;section&quot;:&quot;Assistant&quot;}}">
+class Component extends DCLogic {
+  state = {
+    view: 'overview', lessonId: 'l01', theme: 'light',
+    done: {}, codeModes: {}, copiedKey: null,
+    chatOpen: false, chatMsgs: [], chatInput: '', chatBusy: false, equipped: [],
+    termHist: {}, termInput: '', termRan: {}, lab: {},
+    expTab: 'project', expSel: 'claude-md', expOpen: { 'dot-claude': true, 'skills': true, 'global-dot-claude': true },
+  };
+
+  componentDidMount() {
+    try {
+      const done = JSON.parse(localStorage.getItem('pat-academy-done') || '{}');
+      const pos = localStorage.getItem('pat-academy-pos');
+      const theme = localStorage.getItem('pat-academy-theme') || this.props.defaultTheme || 'light';
+      const patch = { done, theme };
+      patch.lab = JSON.parse(localStorage.getItem('pat-academy-lab') || '{}');
+      patch.termRan = JSON.parse(localStorage.getItem('pat-academy-termran') || '{}');
+      if (pos) patch.lessonId = pos;
+      this.setState(patch);
+    } catch (e) {}
+  }
+
+  mods() { return window.ACADEMY_MODULES || []; }
+  flat() {
+    const out = [];
+    this.mods().forEach(m => m.lessons.forEach(l => out.push({ m, l })));
+    return out;
+  }
+  cur() {
+    const f = this.flat();
+    const i = f.findIndex(x => x.l.id === this.state.lessonId);
+    return { f, i: i < 0 ? 0 : i, ...(f[i < 0 ? 0 : i] || f[0]) };
+  }
+  saveDone(done) { try { localStorage.setItem('pat-academy-done', JSON.stringify(done)); } catch (e) {} }
+  openLesson(id) {
+    try { localStorage.setItem('pat-academy-pos', id); } catch (e) {}
+    this.setState({ view: 'lesson', lessonId: id, termInput: '' });
+  }
+  toggleTheme() {
+    const theme = this.state.theme === 'dark' ? 'light' : 'dark';
+    try { localStorage.setItem('pat-academy-theme', theme); } catch (e) {}
+    this.setState({ theme });
+  }
+
+  esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+  paint(code, rules) {
+    let out = '', rest = code;
+    while (rest.length) {
+      let best = null, bestIdx = Infinity, bestRule = null;
+      for (const r of rules) {
+        r.re.lastIndex = 0;
+        const m = r.re.exec(rest);
+        if (m && m.index < bestIdx) { best = m; bestIdx = m.index; bestRule = r; }
+      }
+      if (!best) { out += this.esc(rest); break; }
+      out += this.esc(rest.slice(0, bestIdx));
+      out += '<span style="color:' + bestRule.c + (bestRule.b ? ';font-weight:700' : '') + '">' + this.esc(best[0]) + '</span>';
+      rest = rest.slice(bestIdx + best[0].length);
+    }
+    return out;
+  }
+  hl(code, lang) {
+    const C = { com: '#6A9955', str: '#CE9178', kw: '#C586C0', kw2: '#569CD6', num: '#B5CEA8', prop: '#9CDCFE', fn: '#DCDCAA', env: '#4FC1FF', type: '#4EC9B0' };
+    const R = (re, c, b) => ({ re, c, b });
+    let rules;
+    if (lang === 'json') rules = [
+      R(/\/\/[^\n]*/g, C.com), R(/"[^"\n]*"(?=\s*:)/g, C.prop), R(/\$\{[A-Z_]+\}/g, C.env),
+      R(/"(?:[^"\\\n]|\\.)*"/g, C.str), R(/\b(true|false|null)\b/g, C.kw2), R(/-?\b\d+(\.\d+)?\b/g, C.num)];
+    else if (lang === 'bash') rules = [
+      R(/#[^\n]*/g, C.com), R(/"(?:[^"\\\n]|\\.)*"|'[^'\n]*'/g, C.str),
+      R(/\$\{?[A-Za-z_][A-Za-z0-9_]*\}?|\$\(/g, C.env),
+      R(/\b(if|then|elif|else|fi|for|do|done|while|case|esac|exit|echo|set|cat|jq|xargs|bash|npx|npm|curl|cd|claude)\b/g, C.kw),
+      R(/^\/[a-z-]+/gm, C.fn), R(/\b\d+\b/g, C.num)];
+    else if (lang === 'yaml' || lang === 'markdown') rules = [
+      R(/^---$/gm, C.com), R(/^#{1,4} [^\n]*/gm, C.kw2, true), R(/&lt;[^&\n]*&gt;/g, C.type),
+      R(/^[ \t]*[A-Za-z_][A-Za-z0-9_-]*(?=:)/gm, C.prop), R(/!`[^`\n]*`/g, C.env),
+      R(/`[^`\n]+`/g, C.str), R(/\$ARGUMENTS|\$\d\b|\$\{[A-Z_]+\}/g, C.env),
+      R(/"(?:[^"\\\n]|\\.)*"/g, C.str), R(/\*\*[^*\n]+\*\*/g, C.fn),
+      R(/^[ \t]*- /gm, C.kw), R(/\b(true|false)\b/g, C.kw2)];
+    else if (lang === 'python') rules = [
+      R(/#[^\n]*/g, C.com), R(/"(?:[^"\\\n]|\\.)*"|'[^'\n]*'/g, C.str),
+      R(/\b(from|import|async|def|for|in|await|print|return|if|else|as)\b/g, C.kw),
+      R(/\b(query|main)\b(?=\()/g, C.fn), R(/\b\d+\b/g, C.num)];
+    else rules = [
+      R(/\$ARGUMENTS|\$TOOL_INPUT|\$USER_PROMPT|\$\{[A-Z_]+\}/g, C.env),
+      R(/&lt;[a-z][^&\n]*&gt;|&lt;\/[a-z][^&\n]*&gt;/g, C.type),
+      R(/\*\*[^*\n]+\*\*/g, C.fn), R(/^\d+\. /gm, C.kw), R(/^[ \t]*- /gm, C.kw),
+      R(/"[^"\n]{1,90}"/g, C.str), R(/'[^'\n]{1,60}'/g, C.str)];
+    if (lang === 'yaml' || lang === 'markdown' || lang === 'text' || !['json','bash','python'].includes(lang)) {
+      const escd = this.esc(code);
+      let out = '', rest = escd;
+      while (rest.length) {
+        let best = null, bestIdx = Infinity, bestRule = null;
+        for (const r of rules) { r.re.lastIndex = 0; const m = r.re.exec(rest); if (m && m.index < bestIdx) { best = m; bestIdx = m.index; bestRule = r; } }
+        if (!best) { out += rest; break; }
+        out += rest.slice(0, bestIdx);
+        out += '<span style="color:' + bestRule.c + (bestRule.b ? ';font-weight:700' : '') + '">' + best[0] + '</span>';
+        rest = rest.slice(bestIdx + best[0].length);
+      }
+      return out;
+    }
+    return this.paint(code, rules);
+  }
+
+  codeBlock(key, code, lang, file) {
+    const mode = this.state.codeModes[key] || 'preview';
+    const copied = this.state.copiedKey === key;
+    this._codeTexts = this._codeTexts || {};
+    this._codeTexts[key] = code;
+    const btn = (act, label, active) =>
+      '<button data-act="' + act + '" data-key="' + key + '" style="font-family:inherit;font-size:11px;font-weight:700;padding:3px 10px;border-radius:6px;cursor:pointer;border:1px solid ' + (active ? '#00A8E1' : '#2A4A66') + ';background:' + (active ? 'rgba(0,168,225,0.22)' : 'transparent') + ';color:' + (active ? '#8FD4F0' : '#7D97AB') + ';">' + label + '</button>';
+    const body = mode === 'preview' ? this.hl(code, lang) : this.esc(code);
+    return '<div style="margin:16px 0;border-radius:10px;overflow:hidden;border:1px solid #16354D;box-shadow:0 2px 8px rgba(0,55,103,0.12);">' +
+      '<div style="display:flex;align-items:center;gap:8px;background:#0B2237;padding:7px 12px;border-bottom:1px solid #16354D;">' +
+      '<span style="font-family:ui-monospace,Menlo,Consolas,monospace;font-size:11.5px;color:#8FD4F0;font-weight:600;">' + this.esc(file || lang) + '</span>' +
+      '<span style="font-size:9.5px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:#7D97AB;border:1px solid #2A4A66;border-radius:4px;padding:1px 6px;">' + lang + '</span>' +
+      '<span style="flex:1"></span>' +
+      btn('preview', 'Preview', mode === 'preview') + btn('raw', 'Raw', mode === 'raw') +
+      '<button data-act="copy" data-key="' + key + '" style="font-family:inherit;font-size:11px;font-weight:700;padding:3px 10px;border-radius:6px;cursor:pointer;border:1px solid ' + (copied ? '#7BC24D' : '#2A4A66') + ';background:transparent;color:' + (copied ? '#7BC24D' : '#7D97AB') + ';">' + (copied ? 'Copied &#10003;' : 'Copy') + '</button>' +
+      '</div>' +
+      '<pre style="margin:0;padding:14px 16px;background:#1E1E1E;overflow:auto;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12.5px;line-height:1.65;color:#D4D4D4;max-height:520px;"><code>' + body + '</code></pre></div>';
+  }
+
+  styleHtml(h) {
+    return h
+      .replace(/<p>/g, '<p style="margin:0 0 14px;font-size:15px;line-height:1.7;color:var(--text-body);max-width:900px;">')
+      .replace(/<ul>/g, '<ul style="margin:0 0 14px;padding-left:22px;display:flex;flex-direction:column;gap:6px;max-width:900px;">')
+      .replace(/<ol>/g, '<ol style="margin:0 0 14px;padding-left:22px;display:flex;flex-direction:column;gap:6px;max-width:900px;">')
+      .replace(/<li>/g, '<li style="font-size:15px;line-height:1.65;color:var(--text-body);">')
+      .replace(/<code>/g, '<code style="font-family:ui-monospace,Menlo,Consolas,monospace;font-size:0.87em;background:var(--inline-bg);border:1px solid var(--inline-border);border-radius:5px;padding:1px 5px;color:var(--inline-text);">')
+      .replace(/<strong>/g, '<strong style="color:var(--text-strong);font-weight:700;">');
+  }
+
+  buildBlocks(blocks, keyPrefix) {
+    let html = '';
+    (blocks || []).forEach((b, i) => {
+      if (b.t === 'h') html += this.styleHtml(b.h);
+      else if (b.t === 'c') html += this.codeBlock(keyPrefix + '-c' + i, b.code, b.lang, b.file);
+      else if (b.t === 'img') { const RES = window.__resources || {}; const RMAP = { 'assets/agentic-loop.svg': 'diag-loop', 'assets/session-continuity.svg': 'diag-session', 'assets/context-loading.svg': 'diag-context' }; const imgSrc = RES[RMAP[b.src]] || b.src; html += '<figure style="margin:18px 0;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:18px;text-align:center;max-width:900px;"><img src="' + imgSrc + '" alt="' + this.esc(b.alt || '') + '" style="max-width:100%;height:auto;">' + (b.cap ? '<figcaption style="margin-top:8px;font-size:12px;color:var(--muted);">' + b.cap + '</figcaption>' : '') + '</figure>'; }
+      else if (b.t === 'table') {
+        html += '<div style="overflow-x:auto;margin:16px 0;max-width:900px;"><table style="border-collapse:collapse;width:100%;font-size:13.5px;background:var(--surface);border-radius:8px;overflow:hidden;box-shadow:0 0 0 1px var(--border);">';
+        html += '<tr>' + b.head.map(h => '<th style="text-align:left;padding:9px 14px;background:var(--primary-bg);color:#fff;font-size:12px;font-weight:700;letter-spacing:0.03em;">' + h + '</th>').join('') + '</tr>';
+        b.rows.forEach((r, ri) => { html += '<tr>' + r.map((c, ci) => '<td style="padding:9px 14px;border-top:1px solid var(--border-2);color:var(--text-body);line-height:1.5;' + (ci === 0 ? 'font-weight:650;color:var(--text-strong);' : '') + (r.length > 2 && ci === 1 ? 'font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12px;' : '') + '">' + c + '</td>').join('') + '</tr>'; });
+        html += '</table></div>';
+      }
+      else if (b.t === 'callout') {
+        const K = {
+          info: ['rgba(0,168,225,0.10)', 'rgba(0,168,225,0.35)', 'var(--brand-ink)'],
+          tip: ['rgba(20,126,194,0.10)', 'rgba(20,126,194,0.32)', 'var(--brand-ink)'],
+          warn: ['rgba(232,164,92,0.14)', 'rgba(232,164,92,0.40)', '#B8860B'],
+          danger: ['rgba(224,106,90,0.12)', 'rgba(224,106,90,0.40)', '#C0392B'],
+          success: ['rgba(123,194,77,0.14)', 'rgba(123,194,77,0.42)', 'var(--ok)'],
+        }[b.kind] || ['rgba(120,130,140,0.10)', 'var(--border)', 'var(--text-strong)'];
+        html += '<div style="margin:16px 0;max-width:900px;border-radius:10px;padding:13px 16px;background:' + K[0] + ';border:1px solid ' + K[1] + ';"><div style="font-size:10.5px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:' + K[2] + ';margin-bottom:4px;">' + b.title + '</div><div style="font-size:13.5px;line-height:1.6;color:var(--text-body);">' + b.h + '</div></div>';
+      }
+    });
+    return html;
+  }
+
+  onBodyClick = (e) => {
+    const t = e.target.closest ? e.target.closest('[data-act]') : null;
+    if (!t) return;
+    const act = t.getAttribute('data-act'), key = t.getAttribute('data-key');
+    if (act === 'copy') {
+      const txt = (this._codeTexts || {})[key] || '';
+      const done = () => { this.setState({ copiedKey: key }); clearTimeout(this._ct); this._ct = setTimeout(() => this.setState({ copiedKey: null }), 1800); };
+      if (navigator.clipboard) navigator.clipboard.writeText(txt).then(done, done); else done();
+    } else {
+      this.setState(s => ({ codeModes: { ...s.codeModes, [key]: act } }));
+    }
+  };
+
+  termRespond(cmd) {
+    const c = cmd.trim();
+    const T = [
+      [/^claude$/, 'Claude Code v2.1.130\n~/my-app · main · sonnet\n\nWelcome back. 3 files changed since your last session.\nTry /init to create a CLAUDE.md, or just describe a task.'],
+      [/^\/init$/, 'Analyzing project structure…\nFound: package.json (npm), tsconfig.json, src/ (42 files), tests/\n\nDrafted CLAUDE.md with your build, test, and lint commands.\nReview and edit with /memory. Commit it to share with your team.'],
+      [/^\/context$/, 'Context window · 34% used (68k / 200k tokens)\n  System prompt & tools ........ 9,200\n  CLAUDE.md + rules ............ 1,850\n  Skill descriptions ............. 640\n  MCP tool names ................. 210\n  Auto memory (MEMORY.md) ........ 480\n  Conversation & tool output .. 55,620\nTip: /compact to summarize, or route side tasks through subagents.'],
+      [/^\/compact/, 'Compacting conversation…\nPreserved: your requests, key code snippets' + (c.includes('focus') ? ', focus: "' + c.replace(/^\/compact\s*(focus on)?\s*/, '') + '"' : '') + '\nCleared: older tool outputs\nContext now 12% used.'],
+      [/^\/model$/, 'Current model: claude-sonnet-4-6\nAvailable: opus (deeper reasoning) · sonnet (default) · haiku (fast)\nSwitch with /model opus — or start with claude --model opus'],
+      [/^\/doctor$/, 'Running diagnostics…\n  ✓ Installation healthy (native build)\n  ✓ Auth OK (Pro plan)\n  ✓ 2 MCP servers connected\n  ✓ 4 hooks registered\n  ! CLAUDE.md is 214 lines — consider splitting into .claude/rules/'],
+      [/^\/help$/, 'Common commands:\n  /init      create a CLAUDE.md\n  /context   what is using the window\n  /compact   summarize the conversation\n  /memory    open CLAUDE.md / auto memory\n  /hooks     review registered hooks\n  /mcp       MCP server status & cost\n  /doctor    diagnose your installation\n  /resume    session picker'],
+      [/^\/hooks$/, 'Registered hooks:\n  PostToolUse  Edit|Write → prettier --write        settings.json\n  PreToolUse   Write|Edit → validate-write.sh       plugin: plugin-dev\n  Stop         *          → completion gate (prompt) plugin: plugin-dev\n  SessionStart *          → load-context.sh          plugin: plugin-dev'],
+      [/^\/mcp$/, 'MCP servers:\n  github        connected · stdio · 14 tools · ~210 tokens (names only)\n  docs-api      connected · http  ·  6 tools · ~90 tokens\nSchemas load on demand via tool search.'],
+      [/^\/memory$/, 'Opening memory…\n  Project CLAUDE.md   ./CLAUDE.md (87 lines)\n  Global CLAUDE.md    ~/.claude/CLAUDE.md (12 lines)\n  Auto memory         ~/.claude/projects/my-app/memory/MEMORY.md\nAuto memory is ON.'],
+      [/^\/plugin install\s+(.+)$/, (m) => 'Installing ' + m[1] + '…\n  ✓ manifest valid (.claude-plugin/plugin.json)\n  ✓ 7 skills, 3 agents, 1 command, 4 hooks discovered\n  ✓ cached under ~/.claude/plugins\nRestart the session to load its hooks. Invoke skills as /' + m[1].split('@')[0] + ':<skill>.'],
+      [/^\/plugin list$/, 'Installed plugins:\n  plugin-dev@claude-code-marketplace   v0.1.0   7 skills · 3 agents\n  patterson-brand@patterson-design     v1.2.0   2 skills'],
+      [/^\/plugin/, 'Usage: /plugin install <name>@<marketplace> · /plugin list · /plugin marketplace add <repo>'],
+      [/^claude mcp add/, 'Added MCP server to user scope (~/.claude.json).\nIt will connect at the start of your next session. Check with /mcp.'],
+      [/^claude project purge .*--dry-run/, 'DRY RUN — would delete for ~/work/my-repo:\n  transcripts: 23 sessions (projects/…)\n  auto memory: MEMORY.md + 3 topic files\n  file-history: 412 snapshots\n  history.jsonl: 187 matching prompt lines\nNothing was deleted. Re-run without --dry-run to proceed.'],
+      [/^claude project purge/, 'This will delete transcripts, auto memory, tasks, debug logs,\nfile history and matching prompt history for ~/work/my-repo.\nConfirm? (y/N)  — simulated: state cleared.\nNote: shell-snapshots/ and backups/ are left alone (not project-scoped).'],
+      [/^ls\s+\.claude\/?$/, 'CLAUDE.md      settings.json  settings.local.json\nrules/         skills/        commands/\nagents/        workflows/     agent-memory/'],
+      [/^ls/, 'CLAUDE.md   package.json   src/   tests/   .claude/   .mcp.json'],
+      [/^claude --/, 'Starting Claude Code with those flags… (simulated)\nSee the CLI reference for the full flag list: code.claude.com/docs/en/cli-reference'],
+      [/^\/rewind$/, 'Checkpoints in this session:\n  › 3 min ago   edit src/checkout.ts, src/cart.ts\n    11 min ago  create tests/checkout.test.ts\n    24 min ago  session start\n(↑/↓ select · Enter restore code · c restore code + conversation)\nCheckpoints cover Claude\'s edits — not your own, and not git.'],
+      [/^\/permissions$/, 'Effective permission rules:\n  allow  Bash(npm test *)          .claude/settings.json\n  allow  Bash(git diff *)          ~/.claude/settings.json\n  allow  Bash(docker *)            .claude/settings.local.json\n  deny   Bash(rm -rf *)            .claude/settings.json\n  deny   Read(./.env)              .claude/settings.json\nEverything else asks. Mode: default.'],
+      [/^\/config$/, 'Configuration (merged, highest scope wins):\n  model            sonnet            ~/.claude/settings.json\n  outputStyle      default           (built-in)\n  theme            dark              ~/.claude.json\n  autoConnectIde   true              ~/.claude.json\n  permissions      6 rules           3 files\nEdit files directly, or change values here.'],
+      [/^\/skills$/, 'Skills available here:\n  /security-review        project  .claude/skills/security-review\n  /release-notes          project  .claude/skills/release-notes\n  /commit-message         user     ~/.claude/skills/commit-message\n  /plugin-dev:new-skill   plugin   plugin-dev@claude-code-marketplace\nClaude can auto-invoke all but /security-review (disable-model-invocation).'],
+      [/^\/agents$/, 'Subagents defined:\n  code-reviewer     project  Read, Grep, Glob        memory: project\n  test-runner       project  Read, Edit, Bash\n  doc-writer        user     Read, Write\nEach runs in its own context window. Delegate with @code-reviewer.'],
+      [/^\/workflows$/, 'Dynamic workflows:\n  /parallel-review    reviews each changed package in its own subagent\n  /triage-issues      groups open issues, then fixes the top three\nWritten by Claude and saved from this menu with s.'],
+      [/^\/clear$/, 'Cleared the conversation. Context now 4% used (system prompt, CLAUDE.md).\nThe transcript is still on disk — reopen it with /resume.'],
+      [/^\/cost$/, 'This session: 1h 12m · 412k input · 38k output tokens\nIncluded in your Pro plan. Subagent turns are counted separately.'],
+      [/^\/export$/, 'Exported the conversation to ./claude-session-2026-07-26.md\nUseful for handing context to a colleague or attaching to a ticket.'],
+      [/^\/resume$/, 'Sessions in this worktree:\n  › fix checkout token refresh     2h ago   main\n    add OAuth support (plan)       1d ago   feat/oauth\n    repo tour                      3d ago   main\n(↑/↓ select · Enter resume · f fork)'],
+    ];
+    for (const [re, resp] of T) {
+      const m = c.match(re);
+      if (m) return typeof resp === 'function' ? resp(m) : resp;
+    }
+    if (c.startsWith('/')) return 'Unknown command in this simulator. Try /help for the supported set.';
+    if (!c) return '';
+    return 'This terminal simulates Claude Code\'s built-in commands (try the chips below,\nor /help). It does not run arbitrary shell commands — nothing here can break.';
+  }
+  termRun(cmd) {
+    const id = this.state.lessonId;
+    const hist = this.state.termHist[id] || [];
+    const lines = [...hist, { text: '~/my-app $ ' + cmd, color: '#7D97AB' }];
+    const out = this.termRespond(cmd);
+    if (out) out.split('\n').forEach(l => lines.push({ text: l, color: l.startsWith('  ✓') ? '#7BC24D' : (l.startsWith('  !') ? '#E8B84C' : '#DBE9F4') }));
+    const ran = { ...this.state.termRan, [cmd.trim()]: true };
+    try { localStorage.setItem('pat-academy-termran', JSON.stringify(ran)); } catch (e) {}
+    this.setState(s => ({ termHist: { ...s.termHist, [id]: lines.slice(-80) }, termInput: '', termRan: ran }));
+  }
+  toggleLab(key) {
+    const lab = { ...this.state.lab };
+    if (lab[key]) delete lab[key]; else lab[key] = true;
+    try { localStorage.setItem('pat-academy-lab', JSON.stringify(lab)); } catch (e) {}
+    this.setState({ lab });
+  }
+  copyText(txt, key) {
+    const done = () => { this.setState({ copiedKey: key }); clearTimeout(this._ct); this._ct = setTimeout(() => this.setState({ copiedKey: null }), 1800); };
+    if (navigator.clipboard) navigator.clipboard.writeText(txt).then(done, done); else done();
+  }
+
+  expData() {
+    if (this._exp) return this._exp;
+    const P = (id, label, o) => ({ id, label, ...o });
+    this._exp = {
+      project: [
+        P('claude-md', 'CLAUDE.md', { badge: 'committed', icon: '#6A9BCC', one: 'Project instructions Claude reads every session', when: 'Loaded into context at the start of every session', desc: 'Project-specific instructions that shape how Claude works in this repository: conventions, common commands, architectural context. Target under 200 lines. Run /memory to edit it in-session.', lang: 'markdown', ex: '# Project conventions\n\n## Commands\n- Build: `npm run build`\n- Test: `npm test`\n\n## Rules\n- Named exports, never default exports\n- Tests live next to source: `foo.ts` -> `foo.test.ts`' }),
+        P('mcp-json', '.mcp.json', { badge: 'committed', icon: '#9B7BC4', one: 'Project-scoped MCP servers, shared with your team', when: 'Servers connect when the session begins; tool schemas defer until use', desc: 'Team-shared MCP servers. Lives at the project root, not inside .claude/. Personal servers go in ~/.claude.json via claude mcp add --scope user. Use ${VAR} references so secrets never land in the file.', lang: 'json', ex: '{\n  "mcpServers": {\n    "github": {\n      "command": "npx",\n      "args": ["-y", "@modelcontextprotocol/server-github"],\n      "env": { "GITHUB_TOKEN": "${GITHUB_TOKEN}" }\n    }\n  }\n}' }),
+        P('dot-claude', '.claude/', { folder: true, icon: '#00A8E1', one: 'Project-level configuration, rules, and extensions', when: '', desc: 'Everything Claude Code reads that is specific to this project. Commit most files here so your team shares them; settings.local.json is auto-gitignored.', kids: ['settings-json', 'settings-local', 'rules', 'skills', 'commands', 'agents', 'workflows', 'agent-memory'] }),
+        P('settings-json', 'settings.json', { depth: 1, badge: 'committed', icon: '#73726C', one: 'Permissions, hooks, and configuration — enforced', when: 'Overrides global ~/.claude/settings.json; local settings, CLI flags, managed settings override this', desc: 'Configuration Claude Code applies directly: permissions (allow/deny/ask), hooks, statusLine, model, env, outputStyle. Unlike CLAUDE.md guidance, these are enforced.', lang: 'json', ex: '{\n  "permissions": {\n    "allow": ["Bash(npm test *)"],\n    "deny": ["Bash(rm -rf *)"]\n  },\n  "hooks": {\n    "PostToolUse": [{ "matcher": "Edit|Write", "hooks": [{ "type": "command", "command": "npx prettier --write" }] }]\n  }\n}' }),
+        P('settings-local', 'settings.local.json', { depth: 1, badge: 'gitignored', icon: '#73726C', one: 'Your personal overrides for this project', when: 'Highest user-editable settings file; CLI flags and managed settings still win', desc: 'Same schema as settings.json, not committed. Arrays like permissions.allow combine across scopes; scalars like model use the local value.', lang: 'json', ex: '{\n  "permissions": {\n    "allow": ["Bash(docker *)"]\n  }\n}' }),
+        P('rules', 'rules/', { depth: 1, folder: true, icon: '#9B7BC4', one: 'Topic-scoped instructions, optionally gated by paths', when: 'Rules without paths: load at session start; with paths: when a matching file enters context', desc: 'Project instructions split into topic files. A paths: glob in the frontmatter makes the rule load only when Claude reads a matching file — saving context. Subdirectories are discovered automatically.', lang: 'yaml', ex: '---\npaths:\n  - "**/*.test.ts"\n---\n\n# Testing Rules\n- Use descriptive test names\n- Mock external dependencies, not internal modules' }),
+        P('skills', 'skills/', { depth: 1, folder: true, icon: '#D4A843', one: 'Reusable prompts you or Claude invoke by name', when: 'Invoked with /skill-name or when Claude matches the task to a skill', desc: 'Each skill is a folder with SKILL.md plus supporting files. disable-model-invocation: true makes it user-only; user-invocable: false hides it from the / menu. Skills accept $ARGUMENTS.', kids: ['skill-md'] }),
+        P('skill-md', 'security-review/SKILL.md', { depth: 2, badge: 'committed', icon: '#D4A843', one: 'Entrypoint: trigger, invocability, instructions', when: 'User types /security-review <target>; Claude cannot auto-invoke this one', desc: 'The !`…` line runs a shell command and injects its output; $ARGUMENTS substitutes what you typed. Bundled files like checklist.md are readable by name.', lang: 'markdown', ex: '---\ndescription: Reviews code changes for security vulnerabilities\ndisable-model-invocation: true\nargument-hint: <branch-or-path>\n---\n\n!`git diff $ARGUMENTS`\n\nAudit the changes above for injection, auth gaps, secrets.' }),
+        P('commands', 'commands/', { depth: 1, folder: true, icon: '#788C5D', one: 'Single-file prompts invoked with /name', when: 'User types /command-name', desc: 'Same mechanism as skills — commands/deploy.md creates /deploy like skills/deploy/SKILL.md does. Skills win on name conflicts and can bundle files; new workflows should usually be skills.', lang: 'markdown', ex: '---\nargument-hint: <issue-number>\n---\n\n!`gh issue view $ARGUMENTS`\n\nInvestigate and fix the issue above.' }),
+        P('agents', 'agents/', { depth: 1, folder: true, icon: '#C46686', one: 'Specialized subagents with their own context window', when: 'Runs in its own context window when you or Claude invoke it', desc: 'Each markdown file defines a subagent: description (when to delegate), tools: (restricted access), optional model and memory. Type @ to delegate directly.', lang: 'markdown', ex: '---\nname: code-reviewer\ndescription: Reviews code for correctness, security, and maintainability\ntools: Read, Grep, Glob\n---\n\nYou are a senior code reviewer…' }),
+        P('workflows', 'workflows/', { depth: 1, folder: true, icon: '#C46686', one: 'Dynamic workflow scripts that orchestrate many subagents', when: 'Loaded at startup; each file becomes a /<name> command', desc: 'Each .js file is a dynamic workflow: a script the runtime executes to spawn and coordinate subagents. Written by Claude and saved from /workflows with s, not authored from scratch.' }),
+        P('agent-memory', 'agent-memory/', { depth: 1, folder: true, icon: '#E8A45C', badge: 'autogen', one: 'Subagent persistent memory (memory: project)', when: 'First 200 lines / 25KB of MEMORY.md loaded when the subagent runs', desc: 'Subagents with memory: project get a dedicated directory here, distinct from your main-session auto memory. memory: local writes to agent-memory-local/ (gitignored); memory: user writes to ~/.claude/agent-memory/.' }),
+      ],
+      global: [
+        P('claude-json', '.claude.json', { badge: 'local', icon: '#73726C', one: 'App state and UI preferences', when: 'Read at session start; written back when you change settings in /config', desc: 'State that does not belong in settings.json: theme, OAuth session, per-project trust decisions, your personal MCP servers, UI toggles. Managed mostly through /config.', lang: 'json', ex: '{\n  "autoConnectIde": true,\n  "mcpServers": {\n    "my-tools": { "command": "npx", "args": ["-y", "@example/mcp-server"] }\n  }\n}' }),
+        P('global-dot-claude', '.claude/', { folder: true, icon: '#00A8E1', one: 'Your personal configuration across all projects', when: '', desc: 'The global counterpart to the project directory. Applies to every project; never committed.', kids: ['g-claude-md', 'g-settings', 'g-skills', 'g-agents', 'g-output-styles', 'g-projects', 'keybindings', 'themes'] }),
+        P('g-claude-md', 'CLAUDE.md', { depth: 1, badge: 'local', icon: '#6A9BCC', one: 'Personal preferences across every project', when: 'Loaded at the start of every session, in every project', desc: 'Loaded alongside the project CLAUDE.md; project wins on conflict. Keep it short — it loads everywhere. Good for response style, commit format, personal conventions.', lang: 'markdown', ex: '# Global preferences\n\n- Keep explanations concise\n- Use conventional commit format\n- Prefer composition over inheritance' }),
+        P('g-settings', 'settings.json', { depth: 1, badge: 'local', icon: '#73726C', one: 'Default settings for all projects', when: 'Your defaults; project and local settings override matching keys', desc: 'Same keys as project settings.json. Put permissions you always allow, a preferred model, or a notification hook here.', lang: 'json', ex: '{\n  "permissions": {\n    "allow": ["Bash(git log *)", "Bash(git diff *)"]\n  }\n}' }),
+        P('g-skills', 'skills/', { depth: 1, folder: true, icon: '#D4A843', one: 'Personal skills available in every project', when: 'Invoked with /skill-name in any project', desc: 'Skills you built for yourself that work everywhere. Same structure as project skills, scoped to your user account.' }),
+        P('g-agents', 'agents/', { depth: 1, folder: true, icon: '#C46686', one: 'Personal subagents available in every project', when: 'Claude delegates or you @-mention in any project', desc: 'Subagents defined here are available across all your projects. Same format as project agents.' }),
+        P('g-output-styles', 'output-styles/', { depth: 1, folder: true, icon: '#5AA7A7', one: 'Custom system-prompt sections that adjust how Claude works', when: 'Applied at session start when selected via the outputStyle setting', desc: 'Each markdown file appends a section to the system prompt, by default replacing the built-in coding instructions (keep them with keep-coding-instructions: true). Changes apply next session.', lang: 'markdown', ex: '---\ndescription: Explains reasoning, leaves small changes to you\nkeep-coding-instructions: true\n---\n\nAfter each task, add a brief "Why this approach" note.\nWhen a change is under 10 lines, leave a TODO(human) marker.' }),
+        P('g-projects', 'projects/', { depth: 1, folder: true, icon: '#E8A45C', badge: 'autogen', one: "Auto memory: Claude's notes to itself, per project", when: 'MEMORY.md loaded at session start; topic files read on demand', desc: 'Claude accumulates knowledge across sessions here without you writing anything: build commands, debugging insights, architecture notes. Plain markdown — edit or delete anytime. Also holds session transcripts (JSONL).', lang: 'markdown', ex: '# Memory Index\n\n## Project\n- [build-and-test.md](build-and-test.md): npm run build (~45s), Vitest\n- [architecture.md](architecture.md): API client singleton, refresh-token auth' }),
+        P('keybindings', 'keybindings.json', { depth: 1, badge: 'local', icon: '#73726C', one: 'Custom keyboard shortcuts', when: 'Read at session start and hot-reloaded on edit', desc: 'Rebind shortcuts in the interactive CLI. Run /keybindings to scaffold. Ctrl+C, Ctrl+D, Ctrl+M, Caps Lock are reserved.', lang: 'json', ex: '{\n  "bindings": [\n    { "context": "Chat", "bindings": { "ctrl+e": "chat:externalEditor" } }\n  ]\n}' }),
+        P('themes', 'themes/', { depth: 1, folder: true, icon: '#5AA7A7', one: 'Custom color themes', when: 'Read at session start, hot-reloaded; listed in /theme', desc: 'Each .json defines a theme: a built-in base plus an overrides map of color tokens. Create interactively with /theme.', lang: 'json', ex: '{\n  "name": "Patterson Navy",\n  "base": "dark",\n  "overrides": { "claude": "#00A8E1", "success": "#7BC24D" }\n}' }),
+      ]
+    };
+    return this._exp;
+  }
+
+  chatSystem() {
+    const { l } = this.cur();
+    const plain = (l.blocks || []).filter(b => b.t === 'h').map(b => b.h.replace(/<[^>]+>/g, ' ')).join(' ').slice(0, 1400);
+    let sys = 'You are the Patterson Academy course assistant for a Claude Code training course. Voice: confident, warm, plain-spoken, professional (Patterson Companies brand) — no emoji. Answer questions about Claude Code accurately, grounded in the official docs at code.claude.com/docs. Keep answers under 150 words unless the user asks for a template or code, in which case give the complete artifact. The learner is currently on the lesson "' + l.title + '". Lesson summary: ' + plain;
+    const eq = this.state.equipped;
+    if (eq.length) {
+      const P = window.ACADEMY_PROMPTS || [];
+      sys += '\n\nThe learner has EQUIPPED these prompt templates. You can apply, adapt, or explain them on request:\n';
+      eq.forEach(id => { const p = P.find(x => x.id === id); if (p) sys += '\n=== ' + p.title + ' ===\n' + p.code.slice(0, 4000) + '\n'; });
+    }
+    return sys;
+  }
+  sendChat(text) {
+    const msg = (text || this.state.chatInput).trim();
+    if (!msg || this.state.chatBusy) return;
+    const msgs = [...this.state.chatMsgs, { role: 'user', text: msg }];
+    this.setState({ chatMsgs: msgs, chatInput: '', chatBusy: true });
+    const model = (this.props.assistantModel === 'sonnet') ? 'claude-sonnet-4-5' : 'claude-haiku-4-5';
+    const api = window.claude && window.claude.complete;
+    if (!api) {
+      this.setState({ chatMsgs: [...msgs, { role: 'assistant', text: 'The live assistant is unavailable in this environment — open this page inside the app to chat.' }], chatBusy: false });
+      return;
+    }
+    window.claude.complete({
+      model,
+      max_tokens: 1200,
+      system: this.chatSystem(),
+      messages: msgs.slice(-10).map(m => ({ role: m.role, content: m.text })),
+    }).then(txt => {
+      this.setState(s => ({ chatMsgs: [...s.chatMsgs, { role: 'assistant', text: txt }], chatBusy: false }));
+    }).catch(err => {
+      this.setState(s => ({ chatMsgs: [...s.chatMsgs, { role: 'assistant', text: 'Sorry — the assistant hit an error (' + (err && err.message || 'unknown') + '). Try again in a moment.' }], chatBusy: false }));
+    });
+  }
+
+  renderVals() {
+    const S = this.state;
+    const mods = this.mods();
+    const flat = this.flat();
+    const { m: curM, l: curL, i: curI } = this.cur();
+    const doneCount = flat.filter(x => S.done[x.l.id]).length;
+    const accent = this.props.accent || '#00A8E1';
+    const MODC = ['#003767', '#00A8E1', '#147EC2', '#00817D', '#522E91', '#7BC24D'];
+
+    const tab = (name) => ({
+      font: 'inherit', fontSize: '13.5px', fontWeight: 600, cursor: 'pointer', padding: '8px 14px', borderRadius: '999px', border: '1px solid transparent',
+      background: S.view === name ? 'rgba(255,255,255,0.16)' : 'transparent',
+      color: S.view === name ? '#fff' : 'rgba(255,255,255,0.85)',
+      borderColor: S.view === name ? 'rgba(255,255,255,0.35)' : 'transparent',
+    });
+
+    const navModules = mods.map(m => ({
+      num: m.num, title: m.title,
+      lessons: m.lessons.map(l => {
+        const active = S.view === 'lesson' && l.id === S.lessonId;
+        return {
+          title: l.title, done: !!S.done[l.id], open: () => this.openLesson(l.id),
+          style: { display: 'flex', alignItems: 'center', gap: '8px', width: '100%', padding: '6px 10px', border: 0, borderRadius: '7px', cursor: 'pointer', font: 'inherit', fontSize: '13px', background: active ? 'var(--surface-3)' : 'transparent', color: active ? 'var(--text-strong)' : 'var(--text)', fontWeight: active ? 700 : 450, borderLeft: active ? '3px solid ' + accent : '3px solid transparent' },
+          dotStyle: { width: '7px', height: '7px', borderRadius: '50%', flex: '0 0 auto', background: S.done[l.id] ? '#7BC24D' : (active ? accent : 'var(--border)') },
+        };
+      })
+    }));
+
+    const levelColors = { Beginner: ['var(--lvl-beg-bg)', 'var(--lvl-beg)'], Intermediate: ['var(--lvl-int-bg)', 'var(--lvl-int)'], Advanced: ['var(--lvl-adv-bg)', 'var(--lvl-adv)'] };
+    let counter = 0;
+    const moduleCards = mods.map((m, mi) => {
+      const doneN = m.lessons.filter(l => S.done[l.id]).length;
+      return {
+        num: m.num, title: m.title, desc: m.desc, level: m.level, accent: MODC[mi % MODC.length],
+        levelStyle: { fontSize: '10.5px', fontWeight: 800, letterSpacing: '0.08em', textTransform: 'uppercase', color: levelColors[m.level][1], background: levelColors[m.level][0], borderRadius: '999px', padding: '3px 10px' },
+        doneLabel: doneN + ' / ' + m.lessons.length, doneColor: doneN === m.lessons.length ? 'var(--ok)' : 'var(--muted)',
+        lessons: m.lessons.map(l => {
+          counter += 1;
+          return { title: l.title, numLabel: String(counter).padStart(2, '0'), numColor: S.done[l.id] ? '#7BC24D' : 'var(--muted)', open: () => this.openLesson(l.id) };
+        })
+      };
+    });
+
+    const lessonBody = React.createElement('div', { key: curL.id + '-' + S.theme + '-' + JSON.stringify(S.codeModes) + (S.copiedKey || ''), dangerouslySetInnerHTML: { __html: this.buildBlocks(curL.blocks, curL.id) } });
+
+    const termLines = S.termHist[curL.id] || [{ text: 'Simulated Claude Code session. Type a command or click a chip.', color: '#7D97AB' }];
+    const termChips = (curL.term || ['claude', '/init', '/help']).map(cmd => ({ cmd, run: () => this.termRun(cmd) }));
+    const rawTasks = curL.tasks || [];
+    const tasksDoneN = rawTasks.filter(t => S.termRan[t.cmd]).length;
+    const lessonTasks = rawTasks.map(t => {
+      const ok = !!S.termRan[t.cmd];
+      return {
+        ask: t.ask, cmd: t.cmd, tick: ok ? '\u2713' : '',
+        run: () => this.termRun(t.cmd),
+        style: { display: 'flex', alignItems: 'center', gap: '10px', width: '100%', padding: '8px 12px', border: '1px solid var(--border)', borderRadius: '8px', background: ok ? 'rgba(123,194,77,0.08)' : 'transparent', cursor: 'pointer', font: 'inherit' },
+        dotStyle: { flex: '0 0 auto', width: '18px', height: '18px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '11px', fontWeight: 800, color: '#fff', background: ok ? '#7BC24D' : 'transparent', border: '2px solid ' + (ok ? '#7BC24D' : 'var(--border)') },
+      };
+    });
+
+    const labData = window.ACADEMY_LAB || [];
+    const labSteps = labData.reduce((n, p) => n + p.steps.length, 0);
+    const labDoneN = labData.reduce((n, p) => n + p.steps.filter(st => S.lab[p.id + '/' + st.id]).length, 0);
+    const labPhases = labData.map((p, pi) => {
+      const dn = p.steps.filter(st => S.lab[p.id + '/' + st.id]).length;
+      const complete = dn === p.steps.length;
+      return {
+        num: String(pi + 1), title: p.title, goal: p.goal,
+        numStyle: { flex: '0 0 auto', width: '30px', height: '30px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '14px', fontWeight: 800, color: complete ? '#fff' : 'var(--brand-ink)', background: complete ? '#7BC24D' : 'var(--chip-bg)', border: '1.5px solid ' + (complete ? '#7BC24D' : 'var(--chip-border)') },
+        countLabel: dn + ' / ' + p.steps.length,
+        countStyle: { flex: '0 0 auto', fontSize: '12px', fontWeight: 800, color: complete ? 'var(--ok)' : 'var(--muted)' },
+        steps: p.steps.map((st, si) => {
+          const key = p.id + '/' + st.id;
+          const ok = !!S.lab[key];
+          const ckey = 'lab-' + key;
+          return {
+            title: st.title, tick: ok ? '\u2713' : '',
+            hasCmd: !!st.cmd, cmd: st.cmd || '',
+            copyLabel: S.copiedKey === ckey ? 'Copied' : 'Copy',
+            copy: () => this.copyText(st.cmd || '', ckey),
+            toggle: () => this.toggleLab(key),
+            rowStyle: { display: 'flex', alignItems: 'flex-start', gap: '14px', padding: '16px 24px', borderTop: si === 0 ? '0' : '1px solid var(--border-2)', background: ok ? 'var(--surface-2)' : 'transparent' },
+            boxStyle: { flex: '0 0 auto', width: '22px', height: '22px', marginTop: '1px', borderRadius: '6px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '12px', fontWeight: 800, cursor: 'pointer', color: '#fff', background: ok ? '#7BC24D' : 'transparent', border: '2px solid ' + (ok ? '#7BC24D' : 'var(--border)') },
+            titleStyle: { fontSize: '15px', fontWeight: 700, color: 'var(--text-strong)', marginBottom: '4px', textDecoration: ok ? 'line-through' : 'none', opacity: ok ? 0.65 : 1 },
+            bodyEl: React.createElement('div', { key: key + '-b', style: { fontSize: '14px', lineHeight: 1.65, color: 'var(--text-body)' }, dangerouslySetInnerHTML: { __html: this.styleHtml('<p>' + st.body + '</p>').replace('margin:0 0 14px', 'margin:0') } }),
+            codeEl: st.code ? React.createElement('div', { key: key + '-c-' + S.theme + JSON.stringify(S.codeModes) + (S.copiedKey || ''), dangerouslySetInnerHTML: { __html: this.codeBlock(key, st.code, st.lang || 'text', st.lang) } }) : null,
+          };
+        }),
+      };
+    });
+
+    const exp = this.expData();
+    const roots = exp[S.expTab];
+    const byId = {}; roots.forEach(n => byId[n.id] = n);
+    const expNodes = [];
+    const badgeC = { committed: '#558A42', gitignored: '#B85C3A', local: '#73726C', autogen: '#E8A45C' };
+    roots.forEach(n => {
+      const depth = n.depth || 0;
+      if (depth > 0) {
+        const parent = roots.find(p => (p.kids || []).includes(n.id));
+        if (parent && !S.expOpen[parent.id]) return;
+      }
+      const active = S.expSel === n.id;
+      expNodes.push({
+        label: n.label, caret: n.folder ? (S.expOpen[n.id] ? '\u25BE' : '\u25B8') : '',
+        click: () => this.setState(s => ({ expSel: n.id, expOpen: n.folder ? { ...s.expOpen, [n.id]: !s.expOpen[n.id] } : s.expOpen })),
+        style: { display: 'flex', alignItems: 'center', gap: '6px', width: '100%', padding: '5px 10px 5px ' + (10 + depth * 16) + 'px', border: 0, cursor: 'pointer', font: 'inherit', fontFamily: 'ui-monospace, Menlo, Consolas, monospace', fontSize: '12.5px', background: active ? 'var(--surface-3)' : 'transparent', color: active ? 'var(--text-strong)' : 'var(--text)', fontWeight: active ? 700 : 450, borderLeft: active ? '2px solid ' + accent : '2px solid transparent' },
+        iconStyle: { flex: '0 0 auto', width: '11px', height: '11px', borderRadius: n.folder ? '2px' : '3px', background: n.icon + (n.folder ? '' : '33'), border: '1.5px solid ' + n.icon },
+        badgeStyle: { flex: '0 0 auto', width: '6px', height: '6px', borderRadius: '50%', background: n.badge ? badgeC[n.badge] : 'transparent', opacity: 0.75 },
+      });
+    });
+    const sel = byId[S.expSel] || roots[0];
+    const badgeStyles = { committed: ['rgba(85,138,66,0.14)', '#4E8A3B'], gitignored: ['rgba(217,119,87,0.14)', '#C46A45'], local: ['rgba(140,150,160,0.16)', 'var(--muted-2)'], autogen: ['rgba(232,164,92,0.18)', '#C98A3E'] };
+    const bs = sel.badge ? badgeStyles[sel.badge] : null;
+    const expExample = sel.ex
+      ? React.createElement('div', { key: 'exp-' + sel.id + '-' + S.theme + '-' + JSON.stringify(S.codeModes) + (S.copiedKey || ''), dangerouslySetInnerHTML: { __html: this.codeBlock('exp-' + sel.id, sel.ex, sel.lang || 'text', sel.label) } })
+      : null;
+
+    const promptCards = (window.ACADEMY_PROMPTS || []).map(p => {
+      const equipped = S.equipped.includes(p.id);
+      return {
+        title: p.title, lang: p.lang, source: p.source, desc: p.desc,
+        params: (p.params || []).map(pp => ({ n: pp[0], d: pp[1] })),
+        equipLabel: equipped ? 'Equipped \u2713' : 'Equip assistant',
+        equipStyle: { marginLeft: 'auto', font: 'inherit', fontSize: '11.5px', fontWeight: 700, cursor: 'pointer', borderRadius: '999px', padding: '4px 14px', border: '1.5px solid ' + (equipped ? '#7BC24D' : 'var(--text-strong)'), background: equipped ? 'rgba(123,194,77,0.14)' : 'transparent', color: equipped ? 'var(--ok)' : 'var(--text-strong)' },
+        equip: () => this.setState(s => ({ equipped: equipped ? s.equipped.filter(x => x !== p.id) : [...s.equipped, p.id], chatOpen: equipped ? s.chatOpen : true })),
+        codeEl: React.createElement('div', { key: 'pc-' + p.id + '-' + S.theme + '-' + JSON.stringify(S.codeModes) + (S.copiedKey || ''), style: { margin: '0 -1px -1px' }, dangerouslySetInnerHTML: { __html: this.codeBlock('pl-' + p.id, p.code, p.lang, p.title) } }),
+      };
+    });
+
+    const chatMsgs = S.chatMsgs.map(m => ({
+      text: m.text,
+      style: m.role === 'user'
+        ? { alignSelf: 'flex-end', maxWidth: '85%', background: 'var(--primary-bg)', color: '#fff', borderRadius: '12px 12px 4px 12px', padding: '9px 13px', fontSize: '13px', lineHeight: 1.55, whiteSpace: 'pre-wrap' }
+        : { alignSelf: 'flex-start', maxWidth: '92%', background: 'var(--chat-assist)', color: 'var(--text-body)', borderRadius: '12px 12px 12px 4px', padding: '10px 14px', fontSize: '13px', lineHeight: 1.6, whiteSpace: 'pre-wrap' },
+    }));
+    const starters = [
+      'Quiz me on "' + curL.title + '"',
+      'Explain ' + curL.title.toLowerCase() + ' like I\'m new to agents',
+      'How would I apply this at work tomorrow?',
+    ];
+
+    const loopStages = [
+      { name: 'Gather context', icon: '\u2315', sub: 'search files, read code, run git status' },
+      { name: 'Take action', icon: '\u270E', sub: 'edit files, run commands, create tests' },
+      { name: 'Verify results', icon: '\u2713', sub: 're-run tests, check types, compare output' },
+    ].map((s, i) => ({
+      name: s.name, icon: s.icon, sub: s.sub, arrow: i > 0,
+      style: { flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '5px', background: 'var(--surface-3)', border: '2px solid ' + ['#147EC2', '#00A8E1', '#7BC24D'][i], borderRadius: '10px', padding: '14px 10px', animation: 'acadLoopPulse 6s infinite', animationDelay: (i * 2) + 's' },
+    }));
+
+    const doneCur = !!S.done[curL.id];
+    return {
+      theme: S.theme, isDark: S.theme === 'dark', isLight: S.theme !== 'dark',
+      toggleTheme: () => this.toggleTheme(),
+
+      isOverview: S.view === 'overview', isLesson: S.view === 'lesson', isPrompts: S.view === 'prompts', isLab: S.view === 'lab',
+      goOverview: () => this.setState({ view: 'overview' }),
+      goCurriculum: () => this.setState({ view: 'lesson' }),
+      goPrompts: () => this.setState({ view: 'prompts' }),
+      goLab: () => this.setState({ view: 'lab' }),
+      tabOverviewStyle: tab('overview'), tabCurriculumStyle: tab('lesson'), tabPromptsStyle: tab('prompts'), tabLabStyle: tab('lab'),
+      labPhases, labProgressLabel: labDoneN + ' of ' + labSteps + ' steps done',
+      labBarStyle: { width: Math.round(100 * labDoneN / Math.max(1, labSteps)) + '%', height: '100%', background: accent, borderRadius: '4px', transition: 'width 0.3s' },
+      labReset: () => { try { localStorage.setItem('pat-academy-lab', '{}'); } catch (e) {} this.setState({ lab: {} }); },
+      hasTasks: lessonTasks.length > 0, lessonTasks, tasksLabel: tasksDoneN + ' of ' + rawTasks.length + ' tried',
+      progressLabel: doneCount + '/' + flat.length,
+      progressBarStyle: { width: Math.round(100 * doneCount / Math.max(1, flat.length)) + '%', height: '100%', background: accent, borderRadius: '3px', transition: 'width 0.3s' },
+      chatBtnStyle: { display: 'inline-flex', alignItems: 'center', gap: '7px', font: 'inherit', fontSize: '13px', fontWeight: 700, cursor: 'pointer', padding: '7px 16px', borderRadius: '999px', border: '1.5px solid ' + (S.chatOpen ? accent : 'rgba(255,255,255,0.4)'), background: S.chatOpen ? accent : 'transparent', color: '#fff' },
+      toggleChat: () => this.setState(s => ({ chatOpen: !s.chatOpen })),
+
+      startLabel: doneCount ? 'Resume the course' : 'Start the course',
+      startCourse: () => this.openLesson(S.lessonId || 'l01'),
+      heroStats: [{ v: '6', l: 'Modules' }, { v: String(flat.length), l: 'Lessons' }, { v: String(labSteps), l: 'Lab steps' }, { v: String((window.ACADEMY_PROMPTS || []).length), l: 'Prompt templates' }],
+      moduleCards,
+
+      navModules,
+      curModuleNum: curM.num, curLessonNum: curI + 1, totalLessons: flat.length,
+      curTitle: curL.title, curDocs: curL.docs || [],
+      lessonBody, onBodyClick: this.onBodyClick,
+      showLoopWidget: curL.widget === 'loop', loopStages,
+      showTermWidget: curL.widget === 'terminal' || !!(curL.term && curL.term.length), termLines, termChips,
+      termInput: S.termInput,
+      termType: (e) => this.setState({ termInput: e.target.value }),
+      termKey: (e) => { if (e.key === 'Enter') this.termRun(S.termInput); },
+      termClear: () => this.setState(s => ({ termHist: { ...s.termHist, [curL.id]: [] } })),
+      showExplorerWidget: curL.widget === 'explorer',
+      expNodes, expTabProject: () => this.setState({ expTab: 'project', expSel: 'claude-md' }),
+      expTabGlobal: () => this.setState({ expTab: 'global', expSel: 'claude-json' }),
+      expTabProjectStyle: { flex: 1, font: 'inherit', fontSize: '11.5px', fontWeight: 700, cursor: 'pointer', padding: '6px 0', borderRadius: '7px', border: 0, background: S.expTab === 'project' ? 'var(--surface-3)' : 'transparent', color: S.expTab === 'project' ? 'var(--brand-ink)' : 'var(--muted)' },
+      expTabGlobalStyle: { flex: 1, font: 'inherit', fontSize: '11.5px', fontWeight: 700, cursor: 'pointer', padding: '6px 0', borderRadius: '7px', border: 0, background: S.expTab === 'global' ? 'var(--surface-3)' : 'transparent', color: S.expTab === 'global' ? 'var(--brand-ink)' : 'var(--muted)' },
+      expLegend: [{ c: '#558A42', t: 'committed' }, { c: '#B85C3A', t: 'gitignored' }, { c: '#73726C', t: 'local only' }, { c: '#E8A45C', t: 'Claude writes' }],
+      expPath: (S.expTab === 'project' ? 'your-project/' : '~/') + (sel.depth ? '\u2026/' : '') + sel.label,
+      expTitle: sel.label, expOneLiner: sel.one || '', expWhen: sel.when || 'On demand', expDesc: sel.desc || '',
+      expBadgeLabel: sel.badge ? (sel.badge === 'autogen' ? 'Claude writes' : sel.badge) : '',
+      expBadgePillStyle: bs ? { fontSize: '9.5px', fontWeight: 800, letterSpacing: '0.08em', textTransform: 'uppercase', background: bs[0], color: bs[1], borderRadius: '4px', padding: '2px 7px' } : { display: 'none' },
+      expExample,
+
+      markComplete: () => { const done = { ...S.done, [curL.id]: !doneCur }; this.saveDone(done); this.setState({ done }); },
+      completeLabel: doneCur ? 'Completed \u2014 tap to undo' : 'Mark lesson complete',
+      completeBtnStyle: { display: 'inline-flex', alignItems: 'center', gap: '8px', font: 'inherit', fontSize: '13.5px', fontWeight: 700, cursor: 'pointer', padding: '10px 22px', borderRadius: '999px', border: '2px solid ' + (doneCur ? '#7BC24D' : 'var(--primary-bg)'), background: doneCur ? '#7BC24D' : 'var(--primary-bg)', color: '#fff' },
+      hasPrev: curI > 0, hasNext: curI < flat.length - 1,
+      prevTitle: curI > 0 ? flat[curI - 1].l.title : '', nextTitle: curI < flat.length - 1 ? flat[curI + 1].l.title : '',
+      goPrev: () => this.openLesson(flat[curI - 1].l.id),
+      goNext: () => this.openLesson(flat[curI + 1].l.id),
+
+      promptCards,
+
+      chatOpen: S.chatOpen, chatMsgs, chatBusy: S.chatBusy, chatEmpty: S.chatMsgs.length === 0 && !S.chatBusy,
+      chatInput: S.chatInput,
+      chatType: (e) => this.setState({ chatInput: e.target.value }),
+      chatKey: (e) => { if (e.key === 'Enter') this.sendChat(); },
+      chatSend: () => this.sendChat(),
+      chatStarters: starters.map(t => ({ t, send: () => this.sendChat(t) })),
+      hasEquipped: S.equipped.length > 0,
+      equippedChips: S.equipped.map(id => {
+        const p = (window.ACADEMY_PROMPTS || []).find(x => x.id === id);
+        return { t: p ? p.title.slice(0, 28) : id, remove: () => this.setState(s => ({ equipped: s.equipped.filter(x => x !== id) })) };
+      }),
+    };
+  }
+}
+</script>
+</body>
+</html>

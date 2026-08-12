@@ -1,0 +1,49 @@
+/* ============================================================
+   Patterson Companies — Typography Tokens
+   Primary family: Figtree (substitute — see fonts.css)
+   ============================================================ */
+
+:root {
+  /* --- Families -------------------------------------------- */
+  /* proxima-nova = the REAL Patterson brand font (Adobe Fonts; add your
+     Typekit embed to render it). Figtree = loaded free fallback. */
+  --font-sans: 'proxima-nova', 'Figtree', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --font-display: var(--font-sans);
+  --font-mono: 'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+
+  /* --- Weights --------------------------------------------- */
+  --fw-light:    300; /* @kind other */
+  --fw-regular:  400; /* @kind other */
+  --fw-medium:   500; /* @kind other */
+  --fw-semibold: 600; /* @kind other */
+  --fw-bold:     700; /* @kind other */
+  --fw-extra:    800; /* @kind other */
+  --fw-black:    900; /* @kind other */
+
+  /* --- Type scale (hero, headings, body) — px noted in name - */
+  --fs-display:  clamp(2.75rem, 1.6rem + 4.2vw, 4.5rem);   /* @kind other */
+  --fs-h1:       clamp(2.25rem, 1.5rem + 2.6vw, 3.25rem);  /* @kind other */
+  --fs-h2:       clamp(1.75rem, 1.3rem + 1.6vw, 2.5rem);   /* @kind other */
+  --fs-h3:       clamp(1.375rem, 1.15rem + 0.8vw, 1.75rem);/* @kind other */
+  --fs-h4:       1.25rem;   /* 20px @kind other */
+  --fs-h5:       1.0625rem; /* 17px @kind other */
+  --fs-lead:     1.25rem;   /* 20px @kind other */
+  --fs-body:     1rem;      /* 16px @kind other */
+  --fs-sm:       0.875rem;  /* 14px @kind other */
+  --fs-xs:       0.75rem;   /* 12px @kind other */
+  --fs-stat:     clamp(2.5rem, 1.4rem + 4vw, 4rem);        /* @kind other */
+
+  /* --- Line heights ---------------------------------------- */
+  --lh-tight:    1.05; /* @kind other */
+  --lh-snug:     1.2;  /* @kind other */
+  --lh-heading:  1.15; /* @kind other */
+  --lh-body:     1.6;  /* @kind other */
+  --lh-relaxed:  1.75; /* @kind other */
+
+  /* --- Letter spacing -------------------------------------- */
+  --ls-tight:    -0.02em; /* @kind other */
+  --ls-snug:     -0.01em; /* @kind other */
+  --ls-normal:   0;       /* @kind other */
+  --ls-wide:     0.04em;  /* @kind other */
+  --ls-caps:     0.08em;  /* @kind other */
+}
