@@ -1,5 +1,7 @@
 <div align="center">
 
+![Patterson Academy](docs/assets/banner.svg)
+
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="assets/patterson-logo-white.svg">
   <img src="assets/patterson-logo-navy.svg" alt="Patterson Companies" width="260">
