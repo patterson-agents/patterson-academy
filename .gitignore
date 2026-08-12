@@ -1,0 +1,13 @@
+# Font binaries — ground rule: no fonts committed. Licensing of self-hosted
+# Proxima Nova is unconfirmed; fonts load via the Adobe kit (uth1qfm) or are
+# restorable from the original handoff zip pending a license ruling.
+*.woff2
+*.woff
+*.ttf
+
+# claude.ai/design export artifact — not part of the deliverable.
+.thumbnail
+
+# OS / editor noise
+.DS_Store
+*.swp
