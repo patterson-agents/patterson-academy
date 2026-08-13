@@ -23,6 +23,7 @@ skills, plugins, MCP, hooks, and sandboxing.
 
 ## Table of contents
 
+- [Live site](#live-site)
 - [What this is](#what-this-is)
 - [Provenance](#provenance)
 - [Running it locally](#running-it-locally)
@@ -30,12 +31,28 @@ skills, plugins, MCP, hooks, and sandboxing.
 - [The design system binding](#the-design-system-binding)
 - [Fonts](#fonts)
 
+## Live site
+
+**[academy.pattersonskills.com](https://academy.pattersonskills.com)** — Claude Code training
+for Patterson teams: sessions, context, memory, skills, subagents, hooks, MCP servers and
+plugins.
+
+<img src="docs/screenshots/site-home.webp" width="100%" alt="Claude Code Academy documentation site home page">
+
 ## What this is
 
-`Claude Code Academy` is a self-contained training deck/app that teaches Claude Code
-configuration end to end: `AGENTS.md`, slash commands, skills, plugins, MCP servers, hooks,
-and sandboxing. It is a static prototype — there is no build step, no `package.json`, and no
-framework runtime beyond the browser.
+`Claude Code Academy` teaches Claude Code configuration end to end: `AGENTS.md`, slash
+commands, skills, plugins, MCP servers, hooks, and sandboxing. It ships in two forms from
+one set of data files:
+
+- **The course site** at [academy.pattersonskills.com](https://academy.pattersonskills.com) —
+  a Starlight site under [`site/`](site/), built in CI. 30 lessons across six modules, six
+  lab practicals, eight prompt artifacts, a reference index, and 66 quiz questions.
+- **The original canvases** — the `.dc.html` training deck, which needs no build step and
+  stays reachable at its current paths.
+
+`scripts/build-course.ts` is the bridge: it reads the `academy-*.js` data files and emits the
+MDX the site builds. Nothing in the course is written twice.
 
 ## Provenance
 
@@ -48,16 +65,23 @@ Imported **2026-08-12** from the claude.ai/design **"Patterson Academy"** handof
 
 ## Running it locally
 
-Open the `.dc.html` files directly, or serve the directory root over HTTP:
+The course site:
 
-```bash
-npx serve .
+```sh
+cd site
+bun install
+node ../scripts/build-course.ts   # generate the course pages
+bun run dev                       # http://localhost:4321
 ```
+
+The `.dc.html` canvases open directly in a browser, or serve the directory root over HTTP.
 
 ## Layout
 
 | Path | What it is |
 |---|---|
+| `site/` | The Starlight course site — see [`site/README.md`](site/README.md) |
+| `scripts/build-course.ts` | Extractor: data files → MDX course pages |
 | `Claude Code Academy.dc.html` | The main training canvas |
 | `Lesson Plan.dc.html` | Presenter-facing lesson plan canvas |
 | `Lab Worksheet.dc.html` | Attendee worksheet canvas |

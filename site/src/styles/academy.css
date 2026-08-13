@@ -1,0 +1,51 @@
+/* ============================================================
+   Patterson Academy — course-specific styles
+   ------------------------------------------------------------
+   Layered on top of patterson.css, which owns the brand mapping.
+   Only what the generated course pages need lives here.
+
+   Brand rules observed: 5px radius [BG25 p.57]; sentence case
+   everywhere, no uppercase transforms [BG25 p.25]; teal is the
+   eyebrow color [DS20 p.16]; no emoji, ever.
+   ============================================================ */
+
+:root {
+  /* Eyebrow teal [BG25 p.24]. Used for the module eyebrow and for
+     confirming a correct quiz answer — an on-palette alternative to
+     the tertiary green, which is reserved for infographics. */
+  --pat-teal: #00817d;
+  --pat-teal-light: #4dc4c0;
+
+  /* Error red. An implementation value [DPL], not brand-published. */
+  --pat-error: #d0021b;
+  --pat-error-light: #ff8a8a;
+}
+
+/* Module eyebrow: teal, semibold, sentence case — never uppercase. */
+.pa-eyebrow {
+  color: var(--pat-teal);
+  font-weight: 600;
+  font-size: var(--sl-text-sm);
+  letter-spacing: -0.01em;
+  margin-bottom: 0.5rem;
+}
+:root:not([data-theme='light']) .pa-eyebrow {
+  color: var(--pat-teal-light);
+}
+
+/* Figure captions under lesson diagrams. */
+.pa-caption {
+  color: var(--sl-color-gray-3);
+  font-size: var(--sl-text-sm);
+  line-height: 1.5;
+  margin-top: -0.75rem;
+}
+
+/* Diagrams are drawn on a light ground; give them a surface in both
+   themes so the artwork never floats on a dark canvas. */
+.sl-markdown-content img[src^='/assets/'] {
+  background-color: var(--pat-white);
+  border: 1px solid var(--sl-color-hairline);
+  border-radius: var(--pat-radius);
+  padding: 1rem;
+}

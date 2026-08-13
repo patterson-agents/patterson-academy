@@ -11,3 +11,10 @@
 # OS / editor noise
 .DS_Store
 *.swp
+node_modules/
+dist/
+.astro/
+site/dist/
+
+# Composed Pages artifact (built in CI by .github/workflows/pages.yml)
+_site/

@@ -1,4 +1,4 @@
-name: Deploy static site to GitHub Pages
+name: Deploy course site to GitHub Pages
 
 on:
   push:
@@ -19,15 +19,56 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Configure Pages
         uses: actions/configure-pages@v5
 
+      - name: Set up Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      # The extractor is erasable TypeScript run directly by node.
+      - name: Set up Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+
+      - name: Install site dependencies
+        working-directory: site
+        run: bun install --frozen-lockfile
+
+      - name: Generate course pages
+        run: node scripts/build-course.ts
+
+      - name: Build site
+        working-directory: site
+        run: bun run build
+
+      # The published tree is the Starlight build at the root, plus the original
+      # .dc.html canvases and everything they load, kept at their current paths
+      # so existing links stay valid. node_modules is never copied.
+      - name: Compose artifact
+        run: |
+          set -euo pipefail
+          rm -rf _site
+          mkdir -p _site
+          cp -R site/dist/. _site/
+          cp -R assets _site/
+          cp -R _ds _site/
+          cp academy-data-1.js academy-data-2.js academy-lab.js \
+             academy-prompts.js academy-summaries.js _site/
+          cp support.js doc-page.js _site/
+          cp ./*.dc.html _site/
+          touch _site/.nojekyll
+          echo "composed tree:"
+          find _site -maxdepth 1 -mindepth 1 | sort
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: '.'
+          path: _site
 
   deploy:
     needs: build

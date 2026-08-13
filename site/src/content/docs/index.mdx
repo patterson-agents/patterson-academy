@@ -1,0 +1,65 @@
+---
+title: Patterson Academy
+description: Claude Code training for Patterson teams — 30 lessons, six hands-on practicals and a prompt library, grounded in the official documentation.
+template: splash
+# The page title and the site title are the same here, so override the document
+# title to avoid "Patterson Academy | Patterson Academy" in the browser tab.
+head:
+  - tag: title
+    content: Patterson Academy
+hero:
+  tagline: Claude Code training for Patterson teams
+  image:
+    alt: Patterson Companies
+    dark: ../../assets/patterson-logo-white.svg
+    light: ../../assets/patterson-logo-navy.svg
+  actions:
+    - text: Start the curriculum
+      link: /curriculum/getting-started/
+      icon: right-arrow
+      variant: primary
+    - text: Open the lab
+      link: /lab/set-up-a-working-session/
+      variant: minimal
+---
+
+import { Card, CardGrid } from '@astrojs/starlight/components';
+
+## Learn Claude Code the way your team will use it
+
+Claude Code reads your codebase, edits files, runs commands and verifies its own work. That
+is a different tool from an autocomplete, and it rewards a different set of habits. This
+course teaches those habits: what Claude can see, how to steer it, and how to configure it
+once so the whole team gets the same behavior.
+
+Every lesson is grounded in the official Claude Code documentation, and every claim links
+back to its source. Work through it in order, or use the sidebar to go straight to the
+thing you need today.
+
+<CardGrid stagger>
+  <Card title="Six modules, 30 lessons">
+    From your first session through skills, subagents, hooks, MCP servers and plugin
+    distribution. Each lesson closes with questions that check you understood it — 66
+    across the course.
+  </Card>
+  <Card title="Six hands-on practicals">
+    The lab sets Claude Code up in a repository you actually work in: project memory,
+    permissions, context budget, your first extensions, then packaging it for the team.
+  </Card>
+  <Card title="Eight prompt artifacts">
+    The prompt library carries the long templates in full — agent creation, plugin
+    manifests, hook configurations, skill frontmatter — parameterized and ready to copy.
+  </Card>
+  <Card title="One documentation index">
+    Every official page cited across the curriculum, in one place, with the lessons that
+    cite it.
+  </Card>
+</CardGrid>
+
+## Where to start
+
+If you have never opened Claude Code, begin at
+[Getting started](/curriculum/getting-started/). If you have used it and want it configured
+properly, go to [The .claude directory](/curriculum/the-claude-directory/). If you are
+setting a team up this week, work the [lab](/lab/set-up-a-working-session/) end to end and
+keep the [reference index](/reference/) open beside it.
